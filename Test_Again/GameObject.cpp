@@ -43,10 +43,10 @@ bool GameObject::importModel(const std::string& pFile)
     Assimp::Importer importer;
 
     // And have it read the given file with some example postprocessing
-    // Usually - if speed is not the most important aspect for you - you'll 
+    // Usually - if speed is not the most important aspect for you - you'll
     // propably to request more postprocessing than we do in this example.
-    const aiScene* scene = importer.ReadFile(pFile, 
-        aiProcess_CalcTangentSpace       | 
+    const aiScene* scene = importer.ReadFile(pFile,
+        aiProcess_CalcTangentSpace       |
         aiProcess_Triangulate            |
         aiProcess_JoinIdenticalVertices  |
         aiProcess_SortByPType);
@@ -57,7 +57,7 @@ bool GameObject::importModel(const std::string& pFile)
         //DoTheErrorLogging(importer.GetErrorString());
         return false;
     }
-    // Now we can access the file's contents. 
+    // Now we can access the file's contents.
     GameObject::model = getModel(scene);
 
     // We're done. Everything will be cleaned up by the importer destructor

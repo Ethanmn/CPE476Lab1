@@ -1,6 +1,16 @@
 #include "Game.h"
 #include "Shader.h"
+
 #include <stdio.h>
+
+namespace {
+   inline void unbindBuffers() {
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+   }
+   inline void clearShader() {
+      glUseProgram(0);
+   }
+};
 
 Game::Game() {
    SDL_Init(SDL_INIT_EVERYTHING);
@@ -23,6 +33,26 @@ void Game::draw() {
 }
 
 void Game::mainLoop() {
+   const float ground_vertices[] = {
+      -0.5, -0.5, 0.0,
+      0.5, -0.5, 0.0,
+      -0.5, 0.5, 0.0,
+
+      0.5, 0.5, 0.0,
+      0.5, -0.5, 0.0,
+      -0.5, 0.5, 0.0,
+   };
+
+   GLuint ground_vao;
+   glGenBuffers(1, &ground_vao);
+   glBindVertexArray(ground_vao);
+
+   GLuint ground_vbo;
+   glGenBuffers(1, &ground_vbo);
+   glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(ground_vertices), ground_vertices, GL_STATIC_DRAW);
+   unbindBuffers();
+
    Shader shader("../shaders/vert.glsl", "../shaders/frag.glsl");
 
    bool running = true;
@@ -86,6 +116,15 @@ void Game::mainLoop() {
 
       glClearColor(0, 0, 0, 1);
       glClear(GL_COLOR_BUFFER_BIT);
+
+      shader.use();
+      glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
+      glEnableVertexAttribArray(0);
+      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+      glDrawArrays(GL_TRIANGLES, 0, 6);
+      glDisableVertexAttribArray(0);
+      clearShader();
+
       draw();
       SDL_GL_SwapWindow(window_);
 
