@@ -21,6 +21,8 @@ void Game::draw() {
 }
 
 void Game::mainLoop() {
+   Shader shader("../shaders/vert.glsl", "../shaders/frag.glsl");
+
    bool running = true;
    SDL_Event event;
    units::MS previous_time = SDL_GetTicks();
