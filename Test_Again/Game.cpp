@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Shader.h"
+#include <stdio.h>
 
 Game::Game() {
    SDL_Init(SDL_INIT_EVERYTHING);
@@ -33,9 +35,47 @@ void Game::mainLoop() {
          if (event.type == SDL_QUIT) {
             running = false;
          }
-         if (event.type == SDLK_w) {
 
+         if (event.type == SDL_KEYDOWN)
+         {
+             if (event.key.keysym.sym == SDLK_w) {
+                 //FORWARD
+                 printf("FORWARD HO!");
+             }
+             else if (event.key.keysym.sym == SDLK_s) {
+                 //BACKWARD
+                 printf("BACK IT UP!");
+             }
+             if (event.key.keysym.sym == SDLK_a) {
+                 //LEFT
+                 printf("TO THE LEFT TO THE LEFT!");
+             }
+             else if (event.key.keysym.sym == SDLK_d) {
+                 //RIGHT
+                 printf("RIGHT YOUR WRONGS!");
+             }
          }
+
+         if (event.type == SDL_KEYUP)
+         {
+             if (event.key.keysym.sym == SDLK_w) {
+                 //FORWARD OFF
+                 printf("FORWARD OFF!");
+             }
+             if (event.key.keysym.sym == SDLK_s) {
+                 //BACKWARD OFF
+                 printf("FORWARD OFF!");
+             }
+             if (event.key.keysym.sym == SDLK_a) {
+                 //LEFT OFF
+                 printf("FORWARD OFF!");
+             }
+             if (event.key.keysym.sym == SDLK_d) {
+                 //RIGHT OFF
+                 printf("FORWARD OFF!");
+             }
+         }
+
       }
 
       const units::MS current_time = SDL_GetTicks();

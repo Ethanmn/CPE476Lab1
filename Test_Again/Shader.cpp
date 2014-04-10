@@ -39,7 +39,7 @@ namespace {
          GLint log_length;
          glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_length);
 
-         GLchar info_log[log_length];
+         GLchar info_log[4096];
          glGetShaderInfoLog(shader, log_length, NULL, info_log);
 
          printf("Compile failure in %s shader:\n%s\n", shader_type_str(shader_type).c_str(), info_log);
@@ -65,7 +65,7 @@ Shader::Shader(const std::string& vertex_shader_path, const std::string& fragmen
       GLint log_length;
       glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &log_length);
 
-      GLchar info_log[log_length];
+      GLchar info_log[4096];
       glGetProgramInfoLog(program_, log_length, NULL, info_log);
       printf("Shader linker failure: %s\n", info_log);
    }
