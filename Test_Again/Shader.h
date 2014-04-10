@@ -7,6 +7,8 @@
 struct Shader {
    Shader(const std::string& vertex_shader_path, const std::string& fragment_shader_path);
 
+   void use() { glUseProgram(program_); }
+
   private:
    GLuint program_;
 };

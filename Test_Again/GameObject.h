@@ -7,7 +7,6 @@
 
 class GameObject {
     public:
-      bool 
-}
+};
 
 #endif //GAMEOBJECT_H_
