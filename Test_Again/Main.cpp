@@ -1,11 +1,12 @@
 #include <SDL.h>
 #include <GL/glew.h>
 #ifdef _WIN32
-#undef main
+	#undef main
+#endif
 #include <assimp/cimport.h>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#endif
+
 
 int main() {
    SDL_Init(SDL_INIT_EVERYTHING);
