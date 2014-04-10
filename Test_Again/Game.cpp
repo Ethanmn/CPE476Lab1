@@ -31,6 +31,9 @@ void Game::mainLoop() {
          if (event.type == SDL_QUIT) {
             running = false;
          }
+         if (event.type == SDLK_w) {
+
+         }
       }
 
       const units::MS current_time = SDL_GetTicks();
