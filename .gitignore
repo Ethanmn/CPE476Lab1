@@ -1,0 +1,4 @@
+*.pyc
+gen/
+obj/
+Makefile
