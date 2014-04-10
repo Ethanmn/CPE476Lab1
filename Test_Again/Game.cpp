@@ -4,7 +4,7 @@
 
 Game::Game() {
    SDL_Init(SDL_INIT_EVERYTHING);
-   window_ = SDL_CreateWindow("Whatever", 0, 0, 640, 480, SDL_WINDOW_OPENGL);
+   window_ = SDL_CreateWindow("Whatever", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
    context_ = SDL_GL_CreateContext(window_);
    SDL_GL_MakeCurrent(window_, context_);
    glewInit();
@@ -38,6 +38,7 @@ void Game::mainLoop() {
 
          if (event.type == SDL_KEYDOWN)
          {
+             event.key.repeat = false;
              if (event.key.keysym.sym == SDLK_w) {
                  //FORWARD
                  printf("FORWARD HO!");
@@ -64,15 +65,15 @@ void Game::mainLoop() {
              }
              if (event.key.keysym.sym == SDLK_s) {
                  //BACKWARD OFF
-                 printf("FORWARD OFF!");
+                 printf("BACKWARD OFF!");
              }
              if (event.key.keysym.sym == SDLK_a) {
                  //LEFT OFF
-                 printf("FORWARD OFF!");
+                 printf("LEFT OFF!");
              }
              if (event.key.keysym.sym == SDLK_d) {
                  //RIGHT OFF
-                 printf("FORWARD OFF!");
+                 printf("RIGHT OFF!");
              }
          }
 
