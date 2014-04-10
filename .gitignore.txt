@@ -1,0 +1,6 @@
+Debug
+SDK
+Test_Again/debug
+Test_Again/Test_Again
+Test_Again/*.vcxproj
+Test_Again.*
