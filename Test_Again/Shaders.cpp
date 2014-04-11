@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "Shaders.h"
 
 #include <assert.h>
 
@@ -76,15 +76,8 @@ namespace {
    }
 }
 
-Shader::Shader(ShaderType shader) {
-   std::string path = "../shaders/";
-   switch (shader) {
-      case ShaderType::GROUND_SHADER:
-         path += "ground";
-         break;
-      default:
-         fprintf(stderr, "unknown shader type");
-         break;
-   }
-   program_ = compileAndLinkShader(path + ".vert", path + ".frag");
+Shaders::Shaders() {
+   const std::string path = "../shaders/";
+   programs_[ShaderType::GROUND] =
+      compileAndLinkShader(path + "ground.vert", path + "ground.frag");
 }

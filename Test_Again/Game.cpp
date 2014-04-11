@@ -1,14 +1,11 @@
 #include "Game.h"
-#include "Shader.h"
+#include "Shaders.h"
 
 #include <iostream>
 
 namespace {
    inline void unbindBuffers() {
       glBindBuffer(GL_ARRAY_BUFFER, 0);
-   }
-   inline void clearShader() {
-      glUseProgram(0);
    }
 };
 
@@ -53,7 +50,7 @@ void Game::mainLoop() {
    glBufferData(GL_ARRAY_BUFFER, sizeof(ground_vertices), ground_vertices, GL_STATIC_DRAW);
    unbindBuffers();
 
-   Shader shader(ShaderType::GROUND_SHADER);
+   Shaders shaders;
 
    bool running = true;
    SDL_Event event;
@@ -118,13 +115,13 @@ void Game::mainLoop() {
          glClearColor(0, 0, 0, 1);
          glClear(GL_COLOR_BUFFER_BIT);
 
-         shader.use();
+         shaders.use(ShaderType::GROUND);
          glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
          glEnableVertexAttribArray(0);
          glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
          glDrawArrays(GL_TRIANGLES, 0, 6);
          glDisableVertexAttribArray(0);
-         clearShader();
+         shaders.clear();
 
          draw();
          SDL_GL_SwapWindow(window_);
