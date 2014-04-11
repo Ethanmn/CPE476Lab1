@@ -116,7 +116,7 @@ void Game::mainLoop() {
          glClear(GL_COLOR_BUFFER_BIT);
 
          Shader& shader = shaders.use(ShaderType::GROUND);
-         shader.bindAndEnableAttribute(ground_vbo, "aPosition", 3);
+         shader.bindAndEnableAttributes({BufferObject{ground_vbo, "aPosition", 3}});
 
          glDrawArrays(GL_TRIANGLES, 0, 6);
 

@@ -84,13 +84,11 @@ Shader::Shader(const std::string& name, const std::vector<std::string>& attribut
    }
 }
 
-void Shader::bindAndEnableAttribute(
-      GLuint buffer_object,
-      const std::string& attribute,
-      size_t num_components) {
-   glBindBuffer(GL_ARRAY_BUFFER, buffer_object);
-
-   const GLint attrib_location = attribute_locations_.at(attribute);
-   glVertexAttribPointer(attrib_location, num_components, GL_FLOAT, GL_FALSE, 0, nullptr);
-   glEnableVertexAttribArray(attrib_location);
+void Shader::bindAndEnableAttributes(const std::vector<BufferObject>& buffer_objects) {
+   for (const auto& buffer_object : buffer_objects) {
+      glBindBuffer(GL_ARRAY_BUFFER, buffer_object.handle);
+      const GLint attrib_location = attribute_locations_.at(buffer_object.attribute);
+      glVertexAttribPointer(attrib_location, buffer_object.num_components, GL_FLOAT, GL_FALSE, 0, nullptr);
+      glEnableVertexAttribArray(attrib_location);
+   }
 }

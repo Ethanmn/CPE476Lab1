@@ -28,9 +28,7 @@ struct Shaders {
       }
    }
 
-   void clear() {
-      glUseProgram(0);
-   }
+   void clear() { glUseProgram(0); }
 
   private:
    std::map<ShaderType, Shader> shaders_;
