@@ -12,6 +12,8 @@ struct Shader {
    Shader(const std::string& name, const std::vector<std::string>& attributes);
 
    void use() { glUseProgram(program_); }
+
+   void bindIndexBuffer(const IndexBufferObject& index_buffer);
    void bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
    void disableAttribute(const std::string& attribute) {
       glDisableVertexAttribArray(attribute_locations_[attribute]);

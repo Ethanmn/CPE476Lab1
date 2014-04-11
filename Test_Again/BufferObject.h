@@ -11,13 +11,25 @@ struct ArrayBufferObject {
    size_t num_components;
 };
 
+struct IndexBufferObject {
+   GLuint handle;
+   size_t size;
+};
+
 template <typename T>
-ArrayBufferObject createArrayBufferObject(const std::vector<T>& data, const std::string& attribute, size_t num_components) {
+GLuint createBufferObject(const std::vector<T>& data) {
    GLuint vbo;
    glGenBuffers(1, &vbo);
    glBindBuffer(GL_ARRAY_BUFFER, vbo);
    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), data.data(), GL_STATIC_DRAW);
-   return ArrayBufferObject{vbo, attribute, num_components};
+   return vbo;
+}
+
+IndexBufferObject createIndexBufferObject(const std::vector<unsigned short>& data);
+
+template <typename T>
+ArrayBufferObject createArrayBufferObject(const std::vector<T>& data, const std::string& attribute, size_t num_components) {
+   return ArrayBufferObject{createBufferObject(data), attribute, num_components};
 }
 
 #endif // BUFFER_OBJECT_H_

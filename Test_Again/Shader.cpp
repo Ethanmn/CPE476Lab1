@@ -84,6 +84,10 @@ Shader::Shader(const std::string& name, const std::vector<std::string>& attribut
    }
 }
 
+void Shader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.handle);
+}
+
 void Shader::bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects) {
    for (const auto& buffer_object : array_buffer_objects) {
       glBindBuffer(GL_ARRAY_BUFFER, buffer_object.handle);

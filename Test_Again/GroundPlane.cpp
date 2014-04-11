@@ -6,14 +6,19 @@ const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,
    0.5, -0.5, 0.0,
    -0.5, 0.5, 0.0,
-
    0.5, 0.5, 0.0,
+
    0.5, -0.5, 0.0,
    -0.5, 0.5, 0.0,
 };
 
+const std::vector<unsigned short> ground_indices{
+   0, 1, 2, 3, 1, 2
+};
+
 GroundPlane::GroundPlane() :
-   vertex_buffer_object_(createArrayBufferObject(ground_vertices, "aPosition", 3))
+   vertex_buffer_object_(createArrayBufferObject(ground_vertices, "aPosition", 3)),
+   index_buffer_object_(createIndexBufferObject(ground_indices))
 {
 }
 

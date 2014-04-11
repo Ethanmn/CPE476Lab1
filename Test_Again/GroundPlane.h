@@ -12,6 +12,7 @@ struct GroundPlane {
 
   private:
    ArrayBufferObject vertex_buffer_object_;
+   IndexBufferObject index_buffer_object_;
 };
 
 #endif // GROUND_PLANE_H_
