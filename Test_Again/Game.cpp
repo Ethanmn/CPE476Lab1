@@ -115,12 +115,12 @@ void Game::mainLoop() {
          glClearColor(0, 0, 0, 1);
          glClear(GL_COLOR_BUFFER_BIT);
 
-         shaders.use(ShaderType::GROUND);
-         glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
-         glEnableVertexAttribArray(0);
-         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+         Shader& shader = shaders.use(ShaderType::GROUND);
+         shader.bindAndEnableAttribute(ground_vbo, "aPosition", 3);
+
          glDrawArrays(GL_TRIANGLES, 0, 6);
-         glDisableVertexAttribArray(0);
+
+         shader.disableAttribute("aPosition");
          shaders.clear();
 
          draw();
