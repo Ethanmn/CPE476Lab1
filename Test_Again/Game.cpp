@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Shader.h"
 
-#include <stdio.h>
+#include <iostream>
 
 namespace {
    inline void unbindBuffers() {
@@ -66,24 +66,22 @@ void Game::mainLoop() {
             running = false;
          }
 
-         if (event.type == SDL_KEYDOWN)
-         {
-             event.key.repeat = false;
+         if (event.type == SDL_KEYDOWN && event.key.repeat == false) {
              if (event.key.keysym.sym == SDLK_w) {
                  //FORWARD
-                 printf("FORWARD HO!");
+                std::cout << "FORWARD HO!" << std::endl;
              }
              else if (event.key.keysym.sym == SDLK_s) {
                  //BACKWARD
-                 printf("BACK IT UP!");
+                std::cout << "BACK IT UP!" << std::endl;
              }
              if (event.key.keysym.sym == SDLK_a) {
                  //LEFT
-                 printf("TO THE LEFT TO THE LEFT!");
+                std::cout << "TO THE LEFT TO THE LEFT!" << std::endl;
              }
              else if (event.key.keysym.sym == SDLK_d) {
                  //RIGHT
-                 printf("RIGHT YOUR WRONGS!");
+                std::cout << "RIGHT YOUR WRONGS!" << std::endl;
              }
          }
 
@@ -91,19 +89,19 @@ void Game::mainLoop() {
          {
              if (event.key.keysym.sym == SDLK_w) {
                  //FORWARD OFF
-                 printf("FORWARD OFF!");
+                std::cout << "FORWARD OFF!" << std::endl;
              }
              if (event.key.keysym.sym == SDLK_s) {
                  //BACKWARD OFF
-                 printf("BACKWARD OFF!");
+                std::cout << "BACKWARD OFF!" << std::endl;
              }
              if (event.key.keysym.sym == SDLK_a) {
                  //LEFT OFF
-                 printf("LEFT OFF!");
+                std::cout << "LEFT OFF!" << std::endl;
              }
              if (event.key.keysym.sym == SDLK_d) {
                  //RIGHT OFF
-                 printf("RIGHT OFF!");
+                std::cout << "RIGHT OFF!" << std::endl;
              }
          }
 
