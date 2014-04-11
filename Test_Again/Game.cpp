@@ -13,8 +13,7 @@ const std::vector<float> ground_vertices{
 };
 
 Game::Game() :
-   window_(engine_.window()),
-   ground_buffer_object_(createArrayBufferObject(ground_vertices, "aPosition", 3))
+   window_(engine_.window())
 {
 }
 
@@ -22,17 +21,10 @@ void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
-   Shader& shader = shaders_.use(ShaderType::GROUND);
-   shader.bindAndEnableAttributes({ground_buffer_object_});
-
-   glDrawArrays(GL_TRIANGLES, 0, 6);
-
-   shader.disableAttribute("aPosition");
-   shaders_.clear();
+   ground_plane_.draw(shaders_);
 }
 
 void Game::mainLoop() {
-
    bool running = true;
    SDL_Event event;
    units::MS previous_time = SDL_GetTicks();
