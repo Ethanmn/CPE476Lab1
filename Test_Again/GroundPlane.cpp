@@ -1,5 +1,6 @@
 #include "GroundPlane.h"
 
+#include "DrawMesh.h"
 #include "Shaders.h"
 
 const std::vector<float> ground_vertices{
@@ -7,9 +8,6 @@ const std::vector<float> ground_vertices{
    0.5, -0.5, 0.0,
    -0.5, 0.5, 0.0,
    0.5, 0.5, 0.0,
-
-   0.5, -0.5, 0.0,
-   -0.5, 0.5, 0.0,
 };
 
 const std::vector<unsigned short> ground_indices{
@@ -23,11 +21,9 @@ GroundPlane::GroundPlane() :
 }
 
 void GroundPlane::draw(Shaders& shaders) {
-   Shader& shader = shaders.use(ShaderType::GROUND);
-   shader.bindAndEnableAttributes({vertex_buffer_object_});
-
-   glDrawArrays(GL_TRIANGLES, 0, 6);
-
-   shader.disableAttribute("aPosition");
-   shaders.clear();
+   drawMesh(
+         shaders,
+         ShaderType::GROUND,
+         index_buffer_object_,
+         {vertex_buffer_object_});
 }
