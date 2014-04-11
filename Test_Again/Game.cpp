@@ -1,42 +1,37 @@
 #include "Game.h"
-#include "Shaders.h"
 
 #include <iostream>
 
-Game::Game() {
-   SDL_Init(SDL_INIT_EVERYTHING);
-   window_ = SDL_CreateWindow("Whatever", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
-   context_ = SDL_GL_CreateContext(window_);
-   SDL_GL_MakeCurrent(window_, context_);
-   glewInit();
-}
+const std::vector<float> ground_vertices{
+   -0.5, -0.5, 0.0,
+   0.5, -0.5, 0.0,
+   -0.5, 0.5, 0.0,
 
-Game::~Game() {
-   SDL_GL_DeleteContext(context_);
-   SDL_DestroyWindow(window_);
-   SDL_Quit();
+   0.5, 0.5, 0.0,
+   0.5, -0.5, 0.0,
+   -0.5, 0.5, 0.0,
+};
+
+Game::Game() :
+   window_(engine_.window()),
+   ground_buffer_object_(createArrayBufferObject(ground_vertices, "aPosition", 3))
+{
 }
 
 void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
+   Shader& shader = shaders_.use(ShaderType::GROUND);
+   shader.bindAndEnableAttributes({ground_buffer_object_});
+
+   glDrawArrays(GL_TRIANGLES, 0, 6);
+
+   shader.disableAttribute("aPosition");
+   shaders_.clear();
 }
 
 void Game::mainLoop() {
-   const std::vector<float> ground_vertices{
-      -0.5, -0.5, 0.0,
-      0.5, -0.5, 0.0,
-      -0.5, 0.5, 0.0,
-
-      0.5, 0.5, 0.0,
-      0.5, -0.5, 0.0,
-      -0.5, 0.5, 0.0,
-   };
-   ArrayBufferObject groundBufferObject =
-      createArrayBufferObject(ground_vertices, "aPosition", 3);
-
-   Shaders shaders;
 
    bool running = true;
    SDL_Event event;
@@ -101,15 +96,8 @@ void Game::mainLoop() {
          glClearColor(0, 0, 0, 1);
          glClear(GL_COLOR_BUFFER_BIT);
 
-         Shader& shader = shaders.use(ShaderType::GROUND);
-         shader.bindAndEnableAttributes({groundBufferObject});
-
-         glDrawArrays(GL_TRIANGLES, 0, 6);
-
-         shader.disableAttribute("aPosition");
-         shaders.clear();
-
          draw();
+
          SDL_GL_SwapWindow(window_);
       }
 
