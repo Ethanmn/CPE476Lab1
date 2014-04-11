@@ -13,19 +13,10 @@ struct ArrayBufferObject {
 
 template <typename T>
 ArrayBufferObject createArrayBufferObject(const std::vector<T>& data, const std::string& attribute, size_t num_components) {
-   {
-      GLuint vao;
-      glGenBuffers(1, &vao);
-      glBindVertexArray(vao);
-   }
-
    GLuint vbo;
    glGenBuffers(1, &vbo);
    glBindBuffer(GL_ARRAY_BUFFER, vbo);
    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), data.data(), GL_STATIC_DRAW);
-
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-
    return ArrayBufferObject{vbo, attribute, num_components};
 }
 

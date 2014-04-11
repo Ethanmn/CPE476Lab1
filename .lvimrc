@@ -1,1 +1,5 @@
 map <leader>g :!make && make run <CR>
+
+set wildignore+=*.o,*.d
+let g:alternateExtensions_h="cpp,cc,cxx,CC,c"
+
