@@ -3,12 +3,6 @@
 
 #include <iostream>
 
-namespace {
-   inline void unbindBuffers() {
-      glBindBuffer(GL_ARRAY_BUFFER, 0);
-   }
-};
-
 Game::Game() {
    SDL_Init(SDL_INIT_EVERYTHING);
    window_ = SDL_CreateWindow("Whatever", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
@@ -30,7 +24,7 @@ void Game::draw() {
 }
 
 void Game::mainLoop() {
-   const float ground_vertices[] = {
+   const std::vector<float> ground_vertices{
       -0.5, -0.5, 0.0,
       0.5, -0.5, 0.0,
       -0.5, 0.5, 0.0,
@@ -39,16 +33,8 @@ void Game::mainLoop() {
       0.5, -0.5, 0.0,
       -0.5, 0.5, 0.0,
    };
-
-   GLuint ground_vao;
-   glGenBuffers(1, &ground_vao);
-   glBindVertexArray(ground_vao);
-
-   GLuint ground_vbo;
-   glGenBuffers(1, &ground_vbo);
-   glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
-   glBufferData(GL_ARRAY_BUFFER, sizeof(ground_vertices), ground_vertices, GL_STATIC_DRAW);
-   unbindBuffers();
+   ArrayBufferObject groundBufferObject =
+      createArrayBufferObject(ground_vertices, "aPosition", 3);
 
    Shaders shaders;
 
@@ -116,7 +102,7 @@ void Game::mainLoop() {
          glClear(GL_COLOR_BUFFER_BIT);
 
          Shader& shader = shaders.use(ShaderType::GROUND);
-         shader.bindAndEnableAttributes({BufferObject{ground_vbo, "aPosition", 3}});
+         shader.bindAndEnableAttributes({groundBufferObject});
 
          glDrawArrays(GL_TRIANGLES, 0, 6);
 
