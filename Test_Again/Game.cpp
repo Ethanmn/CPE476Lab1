@@ -53,7 +53,7 @@ void Game::mainLoop() {
    glBufferData(GL_ARRAY_BUFFER, sizeof(ground_vertices), ground_vertices, GL_STATIC_DRAW);
    unbindBuffers();
 
-   Shader shader("../shaders/vert.glsl", "../shaders/frag.glsl");
+   Shader shader(ShaderType::GROUND_SHADER);
 
    bool running = true;
    SDL_Event event;
@@ -107,24 +107,28 @@ void Game::mainLoop() {
 
       }
 
-      const units::MS current_time = SDL_GetTicks();
-      const units::MS dt = current_time - previous_time;
-      step(dt);
-      previous_time = current_time;
+      {
+         const units::MS current_time = SDL_GetTicks();
+         const units::MS dt = current_time - previous_time;
+         step(dt);
+         previous_time = current_time;
+      }
 
-      glClearColor(0, 0, 0, 1);
-      glClear(GL_COLOR_BUFFER_BIT);
+      {
+         glClearColor(0, 0, 0, 1);
+         glClear(GL_COLOR_BUFFER_BIT);
 
-      shader.use();
-      glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
-      glEnableVertexAttribArray(0);
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-      glDrawArrays(GL_TRIANGLES, 0, 6);
-      glDisableVertexAttribArray(0);
-      clearShader();
+         shader.use();
+         glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
+         glEnableVertexAttribArray(0);
+         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+         glDrawArrays(GL_TRIANGLES, 0, 6);
+         glDisableVertexAttribArray(0);
+         clearShader();
 
-      draw();
-      SDL_GL_SwapWindow(window_);
+         draw();
+         SDL_GL_SwapWindow(window_);
+      }
 
       SDL_Delay(5);
    }

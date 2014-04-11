@@ -4,9 +4,13 @@
 #include <string>
 #include <GL/glew.h>
 
-struct Shader {
-   Shader(const std::string& vertex_shader_path, const std::string& fragment_shader_path);
+enum class ShaderType {
+   GROUND_SHADER,
+   NUM_SHADER_TYPES,
+};
 
+struct Shader {
+   Shader(ShaderType shader);
    void use() { glUseProgram(program_); }
 
   private:

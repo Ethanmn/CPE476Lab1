@@ -48,28 +48,43 @@ namespace {
 
       return shader;
    }
+
+   GLuint compileAndLinkShader(const std::string& vertex_shader_path, const std::string& fragment_shader_path) {
+      GLuint vertex_shader = createShader(GL_VERTEX_SHADER, vertex_shader_path);
+      GLuint fragment_shader = createShader(GL_FRAGMENT_SHADER, fragment_shader_path);
+
+      GLuint program = glCreateProgram();
+      glAttachShader(program, vertex_shader);
+      glAttachShader(program, fragment_shader);
+
+      glLinkProgram(program);
+      GLint status;
+      glGetProgramiv(program, GL_LINK_STATUS, &status);
+      if (status == GL_FALSE) {
+         GLint log_length;
+         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_length);
+
+         GLchar info_log[4096];
+         glGetProgramInfoLog(program, log_length, NULL, info_log);
+         printf("Shader linker failure: %s\n", info_log);
+      }
+
+      glDetachShader(program, vertex_shader);
+      glDetachShader(program, fragment_shader);
+
+      return program;
+   }
 }
 
-Shader::Shader(const std::string& vertex_shader_path, const std::string& fragment_shader_path) {
-   GLuint vertex_shader = createShader(GL_VERTEX_SHADER, vertex_shader_path);
-   GLuint fragment_shader = createShader(GL_FRAGMENT_SHADER, fragment_shader_path);
-
-   program_ = glCreateProgram();
-   glAttachShader(program_, vertex_shader);
-   glAttachShader(program_, fragment_shader);
-
-   glLinkProgram(program_);
-   GLint status;
-   glGetProgramiv(program_, GL_LINK_STATUS, &status);
-   if (status == GL_FALSE) {
-      GLint log_length;
-      glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &log_length);
-
-      GLchar info_log[4096];
-      glGetProgramInfoLog(program_, log_length, NULL, info_log);
-      printf("Shader linker failure: %s\n", info_log);
+Shader::Shader(ShaderType shader) {
+   std::string path = "../shaders/";
+   switch (shader) {
+      case ShaderType::GROUND_SHADER:
+         path += "ground";
+         break;
+      default:
+         fprintf(stderr, "unknown shader type");
+         break;
    }
-
-   glDetachShader(program_, vertex_shader);
-   glDetachShader(program_, fragment_shader);
+   program_ = compileAndLinkShader(path + ".vert", path + ".frag");
 }
