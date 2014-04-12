@@ -1,7 +1,7 @@
 #ifndef DRAW_MESH_H_
 #define DRAW_MESH_H_
 
-#include "gl_adapters/BufferObject.h"
+#include "gl_adapters/buffer_object.h"
 #include "Shader.h"
 
 void drawMesh(

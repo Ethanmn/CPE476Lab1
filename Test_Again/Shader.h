@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "gl_adapters/BufferObject.h"
+#include "gl_adapters/buffer_object.h"
 #include "gl_adapters/gl_shader.h"
 
 struct Shader {

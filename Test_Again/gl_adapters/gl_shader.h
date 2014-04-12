@@ -2,8 +2,9 @@
 #define GL_SHADER_H_
 
 #include <GL/glew.h>
+#include <string>
 
-#include "gl_adapters/BufferObject.h"
+#include "gl_adapters/buffer_object.h"
 
 struct GLShader {
    GLShader(GLuint linked_program) : program_(linked_program) {}

@@ -1,7 +1,7 @@
 #ifndef GROUND_PLANE_H_
 #define GROUND_PLANE_H_
 
-#include "gl_adapters/BufferObject.h"
+#include "gl_adapters/buffer_object.h"
 
 struct Shader;
 
