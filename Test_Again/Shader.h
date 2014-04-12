@@ -6,22 +6,33 @@
 #include <string>
 #include <vector>
 
-#include "BufferObject.h"
+#include "gl_adapters/BufferObject.h"
+#include "gl_adapters/gl_shader.h"
 
 struct Shader {
-   Shader(const std::string& name, const std::vector<std::string>& attributes);
+   Shader(
+         const std::string& name,
+         const std::vector<std::string>& attributes,
+         const std::vector<std::string>& uniforms);
 
-   void use() { glUseProgram(program_); }
+   template <typename T>
+   ArrayBufferObject createArrayBufferObject(
+         const std::vector<T>& data,
+         const std::string& attribute,
+         size_t num_components) {
+      return ArrayBufferObject{createBufferObject(data), attribute_locations_.at(attribute), num_components};
+   }
+
+   void use();
 
    void bindIndexBuffer(const IndexBufferObject& index_buffer);
    void bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
-   void disableAttribute(const std::string& attribute) {
-      glDisableVertexAttribArray(attribute_locations_[attribute]);
-   }
+   void disableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
 
   private:
-   GLuint program_;
+   GLShader gl_shader_;
    std::map<std::string, GLint> attribute_locations_;
+   std::map<std::string, GLint> uniform_locations_;
 };
 
 #endif // SHADER_H_

@@ -76,23 +76,40 @@ namespace {
    }
 }
 
-Shader::Shader(const std::string& name, const std::vector<std::string>& attributes) :
-   program_(compileAndLinkShader(kShaderPath + name + ".vert", kShaderPath + name + ".frag"))
+Shader::Shader(
+      const std::string& name,
+      const std::vector<std::string>& attributes,
+      const std::vector<std::string>& uniforms) :
+   gl_shader_(compileAndLinkShader(kShaderPath + name + ".vert", kShaderPath + name + ".frag"))
 {
    for (const auto& attr : attributes) {
-      attribute_locations_.insert(std::make_pair(attr, glGetAttribLocation(program_, attr.c_str())));
+      attribute_locations_.insert(std::make_pair(
+               attr,
+               gl_shader_.getAttributeLocation(attr)));
+   }
+   for (const auto& uniform : uniforms) {
+      uniform_locations_.insert(std::make_pair(
+               uniform,
+               gl_shader_.getUniformLocation(uniform)));
    }
 }
 
+void Shader::use() {
+   gl_shader_.use();
+}
+
 void Shader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.handle);
+   gl_shader_.bindIndexBuffer(index_buffer);
 }
 
 void Shader::bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects) {
    for (const auto& buffer_object : array_buffer_objects) {
-      glBindBuffer(GL_ARRAY_BUFFER, buffer_object.handle);
-      const GLint attrib_location = attribute_locations_.at(buffer_object.attribute);
-      glVertexAttribPointer(attrib_location, buffer_object.num_components, GL_FLOAT, GL_FALSE, 0, nullptr);
-      glEnableVertexAttribArray(attrib_location);
+      gl_shader_.bindAndEnableAttribute(buffer_object);
+   }
+}
+
+void Shader::disableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects) {
+   for (const auto& buffer_object : array_buffer_objects) {
+      gl_shader_.disableAttribute(buffer_object);
    }
 }

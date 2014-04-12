@@ -1,16 +1,17 @@
 #ifndef GROUND_PLANE_H_
 #define GROUND_PLANE_H_
 
-#include "BufferObject.h"
+#include "gl_adapters/BufferObject.h"
 
-struct Shaders;
+struct Shader;
 
 struct GroundPlane {
-   GroundPlane();
+   GroundPlane(Shader& shader);
 
-   void draw(Shaders& shaders);
+   void draw();
 
   private:
+   Shader& shader_;
    ArrayBufferObject vertex_buffer_object_;
    IndexBufferObject index_buffer_object_;
 };

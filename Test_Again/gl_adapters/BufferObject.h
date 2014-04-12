@@ -6,14 +6,14 @@
 #include <vector>
 
 struct ArrayBufferObject {
-   GLuint handle;
-   const std::string attribute;
-   size_t num_components;
+   GLuint handle; // Handle for where the Array Buffer is stored.
+   GLint attribute_location; // Location of the attribute in the shader program.
+   size_t num_components; // E.g. Array of vec3s is 3 components.
 };
 
 struct IndexBufferObject {
-   GLuint handle;
-   size_t size;
+   GLuint handle; // Handle for where the Array Buffer is stored.
+   size_t size; // Number of elements in the index_buffer.
 };
 
 template <typename T>
@@ -28,7 +28,7 @@ GLuint createBufferObject(const std::vector<T>& data) {
 IndexBufferObject createIndexBufferObject(const std::vector<unsigned short>& data);
 
 template <typename T>
-ArrayBufferObject createArrayBufferObject(const std::vector<T>& data, const std::string& attribute, size_t num_components) {
+ArrayBufferObject createArrayBufferObject(const std::vector<T>& data, GLint attribute, size_t num_components) {
    return ArrayBufferObject{createBufferObject(data), attribute, num_components};
 }
 

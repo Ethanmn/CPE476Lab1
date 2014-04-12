@@ -1,4 +1,6 @@
 #version 130
+uniform mat4 uProjMatrix;
+
 attribute vec4 aPosition;
 smooth out vec4 theColor;
 void main()
