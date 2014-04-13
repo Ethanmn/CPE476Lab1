@@ -16,4 +16,15 @@ GLBufferHandle createBufferObject(const std::vector<T>& data) {
    return GLBufferHandle(vbo);
 }
 
+template <typename T>
+ArrayBufferObject createArrayBufferObject(
+      const std::vector<T>& data,
+      const std::map<GLShaderHandle, GLAttributeLocation>& attributes,
+      size_t num_components) {
+   return ArrayBufferObject{
+      createBufferObject(data),
+      attributes,
+      num_components};
+}
+
 #endif // BUFFER_OBJECT_H_

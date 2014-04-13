@@ -15,21 +15,20 @@ struct Shader {
          const std::vector<std::string>& attributes,
          const std::vector<std::string>& uniforms);
 
-   template <typename T>
-   ArrayBufferObject createArrayBufferObject(
-         const std::vector<T>& data,
-         const std::string& attribute,
-         size_t num_components) {
-      return ArrayBufferObject{
-         createBufferObject(data),
-         {{gl_shader_.program(), attribute_locations_.at(attribute)}},
-         num_components};
-   }
-
    void use();
    void drawMesh(
          const IndexBufferObject& index_buffer,
          const std::vector<ArrayBufferObject>& array_buffer_objects);
+
+   std::pair<GLShaderHandle, GLAttributeLocation> attributeLocation(
+         const std::string& attribute) {
+      return std::make_pair(
+            gl_shader_.program(),
+            attribute_locations_.at(attribute));
+   }
+
+   static std::map<GLShaderHandle, GLAttributeLocation> getAttributes(
+         const std::vector<std::pair<Shader&, std::string>>& desired_attributes);
 
   private:
    void bindIndexBuffer(const IndexBufferObject& index_buffer);

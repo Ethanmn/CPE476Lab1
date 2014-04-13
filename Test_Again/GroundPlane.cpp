@@ -15,7 +15,11 @@ const std::vector<unsigned short> ground_indices{
 
 GroundPlane::GroundPlane(Shader& shader) :
    shader_(shader),
-   vertex_buffer_object_(shader.createArrayBufferObject(ground_vertices, "aPosition", 3)),
+   vertex_buffer_object_(
+         createArrayBufferObject(
+            ground_vertices,
+            Shader::getAttributes({{shader, "aPosition"}}),
+            3)),
    index_buffer_object_(createIndexBufferObject(ground_indices))
 {
 }

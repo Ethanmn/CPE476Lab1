@@ -105,6 +105,16 @@ void Shader::drawMesh(const IndexBufferObject& index_buffer, const std::vector<A
    disableAttributes(array_buffer_objects);
 }
 
+//static
+std::map<GLShaderHandle, GLAttributeLocation> Shader::getAttributes(
+      const std::vector<std::pair<Shader&, std::string>>& desired_attributes) {
+   std::map<GLShaderHandle, GLAttributeLocation> attributes;
+   for (auto& pair : desired_attributes) {
+      attributes.insert(pair.first.attributeLocation(pair.second));
+   }
+   return attributes;
+}
+
 void Shader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.handle);
 }

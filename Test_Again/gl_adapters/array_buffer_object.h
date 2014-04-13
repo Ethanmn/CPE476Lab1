@@ -2,9 +2,9 @@
 #define ARRAY_BUFFER_OBJECT_H_
 
 #include <GL/glew.h>
-#include "gl_shader.h"
-
 #include <map>
+
+#include "gl_shader.h"
 
 struct ArrayBufferObject {
    GLBufferHandle handle; // Handle for where the Array Buffer is stored.
