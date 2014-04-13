@@ -49,7 +49,7 @@ namespace {
       return shader;
    }
 
-   GLuint compileAndLinkShader(const std::string& vertex_shader_path, const std::string& fragment_shader_path) {
+   GLShaderHandle compileAndLinkShader(const std::string& vertex_shader_path, const std::string& fragment_shader_path) {
       GLuint vertex_shader = createShader(GL_VERTEX_SHADER, vertex_shader_path);
       GLuint fragment_shader = createShader(GL_FRAGMENT_SHADER, fragment_shader_path);
 
@@ -72,7 +72,7 @@ namespace {
       glDetachShader(program, vertex_shader);
       glDetachShader(program, fragment_shader);
 
-      return program;
+      return GLShaderHandle(program);
    }
 }
 

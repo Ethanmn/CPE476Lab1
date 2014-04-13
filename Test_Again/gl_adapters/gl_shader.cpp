@@ -22,9 +22,9 @@ void GLShader::disableAttribute(const ArrayBufferObject& array_buffer) {
 }
 
 GLAttributeLocation GLShader::getAttributeLocation(const std::string& attribute) {
-   return glGetAttribLocation(program_, attribute.c_str());
+   return GLAttributeLocation(glGetAttribLocation(program_, attribute.c_str()));
 }
 
 GLUniformLocation GLShader::getUniformLocation(const std::string& uniform) {
-   return glGetAttribLocation(program_, uniform.c_str());
+   return GLUniformLocation(glGetAttribLocation(program_, uniform.c_str()));
 }
