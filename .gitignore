@@ -1,7 +1,6 @@
 *.pyc
 gen/
 obj/
-Makefile
 notes
 tags
 cscope.*
