@@ -20,6 +20,8 @@ struct Shader {
          const IndexBufferObject& index_buffer,
          const std::vector<ArrayBufferObject>& array_buffer_objects);
 
+   // Helper method. Gets the shader handle and the attribute location of the
+   // given attribute.
    std::pair<GLShaderHandle, GLAttributeLocation> attributeLocation(
          const std::string& attribute) {
       return std::make_pair(
@@ -27,7 +29,9 @@ struct Shader {
             attribute_locations_.at(attribute));
    }
 
-   static std::map<GLShaderHandle, GLAttributeLocation> getAttributes(
+   // Helper method. Gets all of the attributes from shaders and
+   // forms a map for use in createArrayBuffer.
+   static GLAttributeLocationMap getAttributes(
          const std::vector<std::pair<Shader&, std::string>>& desired_attributes);
 
   private:
