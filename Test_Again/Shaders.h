@@ -20,6 +20,7 @@ struct Shaders {
    void clear() { glUseProgram(0); }
 
    std::map<ShaderType, Shader>& getMap() { return shaders_; }
+   GLUniformLocationMap getUniforms(const std::string& uniform);
 
   private:
    std::map<ShaderType, Shader> shaders_;

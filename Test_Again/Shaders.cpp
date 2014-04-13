@@ -3,7 +3,7 @@
 #include <assert.h>
 
 const std::vector<std::string> kGroundAttrs{ "aPosition" };
-const std::vector<std::string> kGroundUniforms{ "uProjMatrix" };
+const std::vector<std::string> kGroundUniforms{ "uProjectionMatrix" };
 
 Shaders::Shaders() {
    shaders_.insert(std::make_pair(
@@ -19,4 +19,12 @@ Shader& Shaders::at(ShaderType shader_type) {
       std::cerr << "Perhaps you meant to initialize it in Shaders::Shaders()?" << std::endl;
       exit(EXIT_FAILURE);
    }
+}
+
+GLUniformLocationMap Shaders::getUniforms(const std::string& uniform) {
+   GLUniformLocationMap uniforms;
+   for (auto& pair : shaders_) {
+      uniforms.insert(pair.second.uniformLocation(uniform));
+   }
+   return uniforms;
 }

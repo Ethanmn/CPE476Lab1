@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 const std::vector<float> ground_vertices{
@@ -12,8 +13,18 @@ const std::vector<float> ground_vertices{
    -0.5, 0.5, 0.0,
 };
 
+glm::mat4 projectionMatrix() {
+   const float field_of_view_y = 80.0f;
+   const float z_near = 0.1f;
+   const float z_far = 100.0f;
+   const float aspect_ratio = 640.0f/480.0f;
+   return glm::perspective(field_of_view_y, aspect_ratio, z_near, z_far);
+}
+
 Game::Game() :
-   ground_plane_(shaders_.at(ShaderType::GROUND))
+   ground_plane_(shaders_.at(ShaderType::GROUND)),
+   projection_matrix_(projectionMatrix()),
+   projection_uniforms_(shaders_.getUniforms("uProjectionMatrix"))
 {
 }
 
@@ -23,9 +34,11 @@ void Game::step(units::MS dt) {
 void Game::draw() {
    auto& shaders = shaders_.getMap();
    for (auto& pair : shaders) {
-      // pair = (ShaderType, Shader)
+      // where pair is (ShaderType, Shader)
       auto& shader = pair.second;
       shader.use();
+
+      shader.uniformMat4(projection_uniforms_, glm::mat4());
 
       // bind constant uniforms
 

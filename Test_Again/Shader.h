@@ -28,11 +28,23 @@ struct Shader {
             gl_shader_.program(),
             attribute_locations_.at(attribute));
    }
+   // Helper method. Gets the shader handle and the uniform location of the
+   // given uniform.
+   std::pair<GLShaderHandle, GLUniformLocation> uniformLocation(
+         const std::string& uniform) {
+      return std::make_pair(
+            gl_shader_.program(),
+            uniform_locations_.at(uniform));
+   }
 
    // Helper method. Gets all of the attributes from shaders and
    // forms a map for use in createArrayBuffer.
    static GLAttributeLocationMap getAttributes(
          const std::vector<std::pair<Shader&, std::string>>& desired_attributes);
+
+   void uniformMat4(const GLUniformLocationMap& uniforms, const glm::mat4& data) {
+      gl_shader_.uniformMat4(uniforms, data);
+   }
 
   private:
    void bindIndexBuffer(const IndexBufferObject& index_buffer);

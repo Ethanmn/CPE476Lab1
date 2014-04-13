@@ -11,5 +11,6 @@ BOOST_STRONG_TYPEDEF(GLuint, GLShaderHandle)
 BOOST_STRONG_TYPEDEF(GLuint, GLBufferHandle)
 
 typedef std::map<GLShaderHandle, GLAttributeLocation> GLAttributeLocationMap;
+typedef std::map<GLShaderHandle, GLUniformLocation> GLUniformLocationMap;
 
 #endif // GL_TYPES_H_
