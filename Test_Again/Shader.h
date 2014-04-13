@@ -25,11 +25,13 @@ struct Shader {
 
    void use();
 
+   void drawMesh(const IndexBufferObject& index_buffer, const std::vector<ArrayBufferObject>& array_buffer_objects);
+
+  private:
    void bindIndexBuffer(const IndexBufferObject& index_buffer);
    void bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
    void disableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
 
-  private:
    GLShader gl_shader_;
    std::map<std::string, GLint> attribute_locations_;
    std::map<std::string, GLint> uniform_locations_;

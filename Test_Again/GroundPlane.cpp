@@ -1,6 +1,5 @@
 #include "GroundPlane.h"
 
-#include "DrawMesh.h"
 #include "Shader.h"
 
 const std::vector<float> ground_vertices{
@@ -22,8 +21,5 @@ GroundPlane::GroundPlane(Shader& shader) :
 }
 
 void GroundPlane::draw() {
-   drawMesh(
-         shader_,
-         index_buffer_object_,
-         {vertex_buffer_object_});
+   shader_.drawMesh(index_buffer_object_, {vertex_buffer_object_});
 }

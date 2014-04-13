@@ -22,12 +22,17 @@ void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
-   auto shaders = shaders_.getMap();
+   auto& shaders = shaders_.getMap();
    for (auto pair : shaders) {
       // pair = (ShaderType, Shader)
-      // pair.second is the Shader
-      pair.second.use();
+      Shader& shader = pair.second;
+      shader.use();
+
+      // bind shader uniforms
+
       ground_plane_.draw();
+
+      // unbind shader uniforms
    }
    shaders_.clear();
 }
