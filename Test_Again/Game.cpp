@@ -38,6 +38,8 @@ void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
+   glClear(GL_COLOR_BUFFER_BIT);
+
    // TODO: move to Shaders.
    auto& shaders = shaders_.getMap();
    for (auto& pair : shaders) {
@@ -114,11 +116,7 @@ void Game::mainLoop() {
       }
 
       {
-         glClearColor(0, 0, 0, 1);
-         glClear(GL_COLOR_BUFFER_BIT);
-
          draw();
-
          engine_.swapWindow();
       }
 
