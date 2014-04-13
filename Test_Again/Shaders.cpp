@@ -3,7 +3,7 @@
 #include <assert.h>
 
 const std::vector<std::string> kGroundAttrs{ "aPosition" };
-const std::vector<std::string> kGroundUniforms{ "uProjectionMatrix" };
+const std::vector<std::string> kGroundUniforms{ "uProjectionMatrix", "uViewMatrix" };
 
 Shaders::Shaders() {
    shaders_.insert(std::make_pair(

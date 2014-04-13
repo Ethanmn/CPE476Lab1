@@ -14,6 +14,8 @@ class Game {
    GroundPlane ground_plane_;
    const glm::mat4 projection_matrix_;
    GLUniformLocationMap projection_uniforms_;
+   const glm::mat4 view_matrix_;
+   GLUniformLocationMap view_uniforms_;
 
    void step(units::MS dt);
    void draw();
