@@ -25,6 +25,6 @@ GLAttributeLocation GLShader::getAttributeLocation(const std::string& attribute)
    return glGetAttribLocation(program_, attribute.c_str());
 }
 
-GLint GLShader::getUniformLocation(const std::string& uniform) {
+GLUniformLocation GLShader::getUniformLocation(const std::string& uniform) {
    return glGetAttribLocation(program_, uniform.c_str());
 }

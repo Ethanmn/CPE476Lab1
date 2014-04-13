@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 
 typedef GLint GLAttributeLocation;
+typedef GLint GLUniformLocation;
 typedef GLuint GLShaderHandle;
 
 #endif // GL_TYPES_H_

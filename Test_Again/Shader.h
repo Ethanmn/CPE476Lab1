@@ -38,7 +38,7 @@ struct Shader {
 
    GLShader gl_shader_;
    std::map<std::string, GLAttributeLocation> attribute_locations_;
-   std::map<std::string, GLint> uniform_locations_;
+   std::map<std::string, GLUniformLocation> uniform_locations_;
 };
 
 #endif // SHADER_H_

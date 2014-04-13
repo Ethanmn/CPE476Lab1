@@ -17,7 +17,7 @@ struct GLShader {
    void disableAttribute(const ArrayBufferObject& array_buffer);
 
    GLAttributeLocation getAttributeLocation(const std::string& attribute);
-   GLint getUniformLocation(const std::string& uniform);
+   GLUniformLocation getUniformLocation(const std::string& uniform);
 
    GLShaderHandle program() { return program_; }
 
