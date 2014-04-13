@@ -8,6 +8,7 @@
 
 #include "gl_adapters/buffer_object.h"
 #include "gl_adapters/gl_shader.h"
+#include "gl_adapters/uniform_matrix.h"
 
 struct Shader {
    Shader(
@@ -42,8 +43,8 @@ struct Shader {
    static GLAttributeLocationMap getAttributes(
          const std::vector<std::pair<Shader&, std::string>>& desired_attributes);
 
-   void uniformMat4(const GLUniformLocationMap& uniforms, const glm::mat4& data) {
-      gl_shader_.uniformMat4(uniforms, data);
+   void uniformMatrix(UniformMatrix& uniform) {
+      uniform.sendToShader(gl_shader_);
    }
 
   private:

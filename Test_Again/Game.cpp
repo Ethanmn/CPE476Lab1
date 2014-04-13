@@ -23,13 +23,14 @@ glm::mat4 projectionMatrix() {
 
 Game::Game() :
    ground_plane_(shaders_.at(ShaderType::GROUND)),
-   projection_matrix_(projectionMatrix()),
-   projection_uniforms_(shaders_.getUniforms("uProjectionMatrix")),
-   view_matrix_(glm::lookAt(
+   projection_(
+         projectionMatrix(),
+         shaders_.getUniforms("uProjectionMatrix")),
+   view_(glm::lookAt(
             glm::vec3(0.3f, 0.0f, 1.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
-            glm::vec3(0.0f, 1.0f, 0.0f))),
-   view_uniforms_(shaders_.getUniforms("uViewMatrix"))
+            glm::vec3(0.0f, 1.0f, 0.0f)),
+         shaders_.getUniforms("uViewMatrix"))
 {
 }
 
@@ -37,6 +38,7 @@ void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
+   // TODO: move to Shaders.
    auto& shaders = shaders_.getMap();
    for (auto& pair : shaders) {
       // where pair is (ShaderType, Shader)
@@ -44,8 +46,8 @@ void Game::draw() {
       shader.use();
 
       // send uniforms to the shader
-      shader.uniformMat4(projection_uniforms_, projection_matrix_);
-      shader.uniformMat4(view_uniforms_, view_matrix_);
+      shader.uniformMatrix(projection_);
+      shader.uniformMatrix(view_);
 
       ground_plane_.draw();
    }
