@@ -13,7 +13,6 @@ const std::vector<float> ground_vertices{
 };
 
 Game::Game() :
-   window_(engine_.window()),
    ground_plane_(shaders_.at(ShaderType::GROUND))
 {
 }
@@ -23,16 +22,16 @@ void Game::step(units::MS dt) {
 
 void Game::draw() {
    auto& shaders = shaders_.getMap();
-   for (auto pair : shaders) {
+   for (auto& pair : shaders) {
       // pair = (ShaderType, Shader)
-      Shader& shader = pair.second;
+      auto& shader = pair.second;
       shader.use();
 
-      // bind shader uniforms
+      // bind constant uniforms
 
       ground_plane_.draw();
 
-      // unbind shader uniforms
+      // unbind uniforms
    }
    shaders_.clear();
 }
@@ -102,7 +101,7 @@ void Game::mainLoop() {
 
          draw();
 
-         SDL_GL_SwapWindow(window_);
+         engine_.swapWindow();
       }
 
       SDL_Delay(5);

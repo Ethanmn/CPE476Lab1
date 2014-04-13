@@ -8,7 +8,6 @@
 
 class Game {
    SDLEngine engine_;
-   SDL_Window* window_;
    Shaders shaders_;
    GroundPlane ground_plane_;
 

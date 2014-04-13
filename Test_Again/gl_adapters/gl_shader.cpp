@@ -10,7 +10,12 @@ void GLShader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
 
 void GLShader::bindAndEnableAttribute(const ArrayBufferObject& array_buffer) {
    glBindBuffer(GL_ARRAY_BUFFER, array_buffer.handle);
-   glVertexAttribPointer(array_buffer.attribute_location, array_buffer.num_components, GL_FLOAT, GL_FALSE, 0, nullptr);
+   glVertexAttribPointer(
+         array_buffer.attribute_location,
+         array_buffer.num_components,
+         GL_FLOAT, GL_FALSE,
+         0,
+         nullptr);
    glEnableVertexAttribArray(array_buffer.attribute_location);
 }
 

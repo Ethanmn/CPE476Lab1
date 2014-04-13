@@ -22,7 +22,7 @@ struct SDLEngine {
       SDL_Quit();
    }
 
-   SDL_Window* window() { return window_; }
+   void swapWindow() { SDL_GL_SwapWindow(window_); }
 
   private:
    SDL_Window* window_;

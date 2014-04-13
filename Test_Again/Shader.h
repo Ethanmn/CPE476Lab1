@@ -20,12 +20,16 @@ struct Shader {
          const std::vector<T>& data,
          const std::string& attribute,
          size_t num_components) {
-      return ArrayBufferObject{createBufferObject(data), attribute_locations_.at(attribute), num_components};
+      return ArrayBufferObject{
+         createBufferObject(data),
+         attribute_locations_.at(attribute),
+         num_components};
    }
 
    void use();
-
-   void drawMesh(const IndexBufferObject& index_buffer, const std::vector<ArrayBufferObject>& array_buffer_objects);
+   void drawMesh(
+         const IndexBufferObject& index_buffer,
+         const std::vector<ArrayBufferObject>& array_buffer_objects);
 
   private:
    void bindIndexBuffer(const IndexBufferObject& index_buffer);
