@@ -4,10 +4,13 @@
 #include <GL/glew.h>
 #include <string>
 
-#include "gl_adapters/buffer_object.h"
+struct ArrayBufferObject;
+struct IndexBufferObject;
+
+typedef GLuint GLShaderHandle;
 
 struct GLShader {
-   GLShader(GLuint linked_program) : program_(linked_program) {}
+   GLShader(GLShaderHandle linked_program) : program_(linked_program) {}
 
    void use();
 
@@ -18,8 +21,10 @@ struct GLShader {
    GLint getAttributeLocation(const std::string& attribute);
    GLint getUniformLocation(const std::string& uniform);
 
+   GLShaderHandle program() { return program_; }
+
   private:
-   GLuint program_;
+   GLShaderHandle program_;
 };
 
 #endif // GL_SHADER_H_

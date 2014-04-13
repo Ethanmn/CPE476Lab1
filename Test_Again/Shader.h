@@ -22,7 +22,7 @@ struct Shader {
          size_t num_components) {
       return ArrayBufferObject{
          createBufferObject(data),
-         attribute_locations_.at(attribute),
+         {{gl_shader_.program(), attribute_locations_.at(attribute)}},
          num_components};
    }
 
