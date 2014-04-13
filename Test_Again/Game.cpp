@@ -34,7 +34,7 @@ Game::Game() :
 {
 }
 
-void Game::step(units::MS dt) {
+void Game::step(units::MS) {
 }
 
 void Game::draw() {
