@@ -26,10 +26,9 @@ namespace {
 
    GLuint createShader(GLenum shader_type, const std::string& path) {
       std::string file_source(read_file(path));
-      std::string source_str(file_source.substr(0, file_source.length()-1));
 
       GLuint shader = glCreateShader(shader_type);
-      const char *source = source_str.c_str();
+      const char *source = file_source.c_str();
       glShaderSource(shader, 1, &source, NULL);
 
       glCompileShader(shader);
