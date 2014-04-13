@@ -13,9 +13,18 @@ const std::vector<float> ground_vertices{
    -0.5, 0.5, 0.0,
 };
 
+glm::mat4 projectionMatrix() {
+   const float field_of_view_y = 80.0f;
+   const float z_near = 0.1f;
+   const float z_far = 100.0f;
+   const float aspect_ratio = 640.0f/480.0f;
+   return glm::perspective(field_of_view_y, aspect_ratio, z_near, z_far);
+}
+
 Game::Game() :
    ground_plane_(shaders_.at(ShaderType::GROUND)),
-   projection_(shaders_),
+   projection_matrix_(projectionMatrix()),
+   projection_uniforms_(shaders_.getUniforms("uProjectionMatrix")),
    view_matrix_(glm::lookAt(
             glm::vec3(0.3f, 0.0f, 1.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
@@ -35,7 +44,7 @@ void Game::draw() {
       shader.use();
 
       // send uniforms to the shader
-      projection_.sendToShader(shader);
+      shader.uniformMat4(projection_uniforms_, projection_matrix_);
       shader.uniformMat4(view_uniforms_, view_matrix_);
 
       ground_plane_.draw();

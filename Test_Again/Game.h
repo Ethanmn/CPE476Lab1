@@ -6,15 +6,14 @@
 #include "GroundPlane.h"
 #include "SDLEngine.h"
 #include "Shaders.h"
-#include "projection.h"
 #include "units.h"
 
 class Game {
    SDLEngine engine_;
    Shaders shaders_;
    GroundPlane ground_plane_;
-   Projection projection_;
-
+   const glm::mat4 projection_matrix_;
+   GLUniformLocationMap projection_uniforms_;
    const glm::mat4 view_matrix_;
    GLUniformLocationMap view_uniforms_;
 
