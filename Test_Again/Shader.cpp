@@ -106,7 +106,7 @@ void Shader::drawMesh(const IndexBufferObject& index_buffer, const std::vector<A
 }
 
 void Shader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
-   gl_shader_.bindIndexBuffer(index_buffer);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.handle);
 }
 
 void Shader::bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects) {

@@ -37,7 +37,7 @@ struct Shader {
    void disableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
 
    GLShader gl_shader_;
-   std::map<std::string, GLint> attribute_locations_;
+   std::map<std::string, GLAttributeLocation> attribute_locations_;
    std::map<std::string, GLint> uniform_locations_;
 };
 

@@ -6,10 +6,6 @@ void GLShader::use() {
    glUseProgram(program_);
 }
 
-void GLShader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer.handle);
-}
-
 void GLShader::bindAndEnableAttribute(const ArrayBufferObject& array_buffer) {
    glBindBuffer(GL_ARRAY_BUFFER, array_buffer.handle);
    glVertexAttribPointer(
@@ -25,7 +21,7 @@ void GLShader::disableAttribute(const ArrayBufferObject& array_buffer) {
    glDisableVertexAttribArray(array_buffer.attribute_locations.at(program_));
 }
 
-GLint GLShader::getAttributeLocation(const std::string& attribute) {
+GLAttributeLocation GLShader::getAttributeLocation(const std::string& attribute) {
    return glGetAttribLocation(program_, attribute.c_str());
 }
 
