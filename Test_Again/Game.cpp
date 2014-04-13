@@ -3,6 +3,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
+#include "assimp/mesh_loader.h"
+
+AssimpMesh treeMesh = loadMesh("../models/cube.obj");
+ArrayBufferObject* treeVbo;
+IndexBufferObject* treeIbo;
+
 const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,
    0.5, -0.5, 0.0,
@@ -27,11 +33,19 @@ Game::Game() :
          projectionMatrix(),
          shaders_.getUniforms("uProjectionMatrix")),
    view_(glm::lookAt(
-            glm::vec3(0.3f, 0.0f, 1.0f),
+            glm::vec3(5.0f, 2.0f, 5.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
             glm::vec3(0.0f, 1.0f, 0.0f)),
          shaders_.getUniforms("uViewMatrix"))
 {
+   treeVbo = new ArrayBufferObject(
+         createArrayBufferObject(
+            treeMesh.vertex_array,
+            Shader::getAttributes({{ shaders_.at(ShaderType::GROUND), "aPosition" }}),
+            3));
+   treeIbo = new IndexBufferObject(
+         createIndexBufferObject(
+            treeMesh.index_array));
 }
 
 void Game::step(units::MS) {
@@ -51,6 +65,11 @@ void Game::draw() {
       shader.uniformMatrix(projection_);
       shader.uniformMatrix(view_);
 
+      shader.uniformMatrix(
+            { glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)),
+              shaders_.getUniforms("uModelMatrix") });
+
+      shader.drawMesh(*treeIbo, {*treeVbo});
       ground_plane_.draw();
    }
    shaders_.clear();

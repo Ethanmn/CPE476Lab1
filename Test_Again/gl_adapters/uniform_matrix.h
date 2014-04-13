@@ -14,7 +14,7 @@ struct UniformMatrix {
       matrix_(matrix),
       uniforms_(uniforms) {}
 
-   void sendToShader(GLShader& shader);
+   void sendToShader(GLShader& shader) const;
   private:
    glm::mat4 matrix_;
    GLUniformLocationMap uniforms_;

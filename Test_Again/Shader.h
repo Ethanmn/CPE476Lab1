@@ -43,7 +43,7 @@ struct Shader {
    static GLAttributeLocationMap getAttributes(
          const std::vector<std::pair<Shader&, std::string>>& desired_attributes);
 
-   void uniformMatrix(UniformMatrix& uniform) {
+   void uniformMatrix(const UniformMatrix& uniform) {
       uniform.sendToShader(gl_shader_);
    }
 

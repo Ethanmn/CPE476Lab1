@@ -2,24 +2,17 @@
 #define MESH_LOADER_H_
 
 #include <string>
+#include <vector>
 
 struct aiScene;
 
 struct AssimpMesh {
-   float* vertexArray;
-   float* normalArray;
-   float* uvArray;
-   unsigned int* indexArray;
-
-   int numVerts;
+   std::vector<float> vertex_array;
+   //std::vector<float> normal_array;
+   //std::vector<float> uv_array;
+   std::vector<unsigned short> index_array;
 };
 
-class MeshLoader {
-   AssimpMesh getModel(const aiScene* scene);
-  public:
-   bool importModel(const std::string& pFile);
-
-   AssimpMesh model;
-};
+AssimpMesh loadMesh(const std::string& path);
 
 #endif // MESH_LOADER_H_
