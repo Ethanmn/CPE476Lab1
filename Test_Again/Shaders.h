@@ -16,11 +16,9 @@ enum class ShaderType {
 struct Shaders {
    Shaders();
 
-   Shader& use(ShaderType shader_type) {
+   Shader& at(ShaderType shader_type) {
       if (shaders_.count(shader_type) > 0) {
-         Shader& shader = shaders_.at(shader_type);
-         shader.use();
-         return shader;
+         return shaders_.at(shader_type);
       } else {
          std::cerr << "Uninitialized ShaderType. ";
          std::cerr << "Perhaps you meant to initialize it in Shaders::Shaders()?" << std::endl;

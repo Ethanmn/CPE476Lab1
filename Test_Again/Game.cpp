@@ -14,7 +14,7 @@ const std::vector<float> ground_vertices{
 
 Game::Game() :
    window_(engine_.window()),
-   ground_plane_(shaders_.use(ShaderType::GROUND))
+   ground_plane_(shaders_.at(ShaderType::GROUND))
 {
 }
 
@@ -22,7 +22,9 @@ void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
+   shaders_.at(ShaderType::GROUND).use();
    ground_plane_.draw();
+   shaders_.clear();
 }
 
 void Game::mainLoop() {
