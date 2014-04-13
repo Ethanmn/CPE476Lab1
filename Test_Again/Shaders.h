@@ -16,17 +16,10 @@ enum class ShaderType {
 struct Shaders {
    Shaders();
 
-   Shader& at(ShaderType shader_type) {
-      if (shaders_.count(shader_type) > 0) {
-         return shaders_.at(shader_type);
-      } else {
-         std::cerr << "Uninitialized ShaderType. ";
-         std::cerr << "Perhaps you meant to initialize it in Shaders::Shaders()?" << std::endl;
-         exit(EXIT_FAILURE);
-      }
-   }
-
+   Shader& at(ShaderType shader_type);
    void clear() { glUseProgram(0); }
+
+   std::map<ShaderType, Shader>& getMap() { return shaders_; }
 
   private:
    std::map<ShaderType, Shader> shaders_;

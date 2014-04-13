@@ -22,8 +22,13 @@ void Game::step(units::MS dt) {
 }
 
 void Game::draw() {
-   shaders_.at(ShaderType::GROUND).use();
-   ground_plane_.draw();
+   auto shaders = shaders_.getMap();
+   for (auto pair : shaders) {
+      // pair = (ShaderType, Shader)
+      // pair.second is the Shader
+      pair.second.use();
+      ground_plane_.draw();
+   }
    shaders_.clear();
 }
 
