@@ -15,7 +15,7 @@
 
 struct Shader {
    Shader(
-         const std::string& name,
+         const std::string& name, // e.g. name="ground" for ground.vert and ground.frag
          const std::vector<Attribute>& attributes,
          const std::vector<Uniform>& uniforms);
 
@@ -27,6 +27,7 @@ struct Shader {
    bool has_attribute(const Attribute& attribute) const {
       return attribute_locations_.count(attribute) > 0;
    }
+
    bool has_uniform(const Uniform& uniform) const {
       return uniform_locations_.count(uniform) > 0;
    }

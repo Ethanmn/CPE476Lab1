@@ -10,6 +10,9 @@ struct ArrayBufferObject;
 struct IndexBufferObject;
 
 struct GLShader {
+   static GLShader compileAndLinkShader(
+         const std::string& vertex_shader_path,
+         const std::string& fragment_shader_path);
    GLShader(GLShaderHandle linked_program) : program_(linked_program) {}
 
    void use();
