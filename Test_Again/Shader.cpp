@@ -13,6 +13,11 @@ Shader::Shader(
    gl_shader_(GLShader::compileAndLinkShader(kShaderPath + name + ".vert", kShaderPath + name + ".frag")),
    program_name_(name)
 {
+   std::cout << "Successfully compiled/linked shader: "
+      << name
+      << " as program: "
+      << gl_shader_.program()
+      << std::endl;
    for (const auto& attr : attributes) {
       attribute_locations_.insert(std::make_pair(
                attr,
