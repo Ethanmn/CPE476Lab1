@@ -34,12 +34,12 @@ GroundPlane::GroundPlane(Shaders& shaders) :
             3),
       }
    },
-   model_matrix_(
-         glm::mat4(),
-         shaders.getUniforms(Uniform::MODEL))
+   model_normal_uniform_(
+         shaders,
+         glm::mat4())
 {
 }
 
 void GroundPlane::draw(Shader& shader) {
-   shader.drawMesh(model_matrix_, mesh_);
+   shader.drawMesh(model_normal_uniform_, mesh_);
 }

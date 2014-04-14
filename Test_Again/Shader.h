@@ -7,13 +7,14 @@
 #include <vector>
 
 #include "gl_adapters/buffer_object.h"
-#include "gl_adapters/gl_shader.h"
 #include "gl_adapters/uniform_matrix.h"
+#include "gl_adapters/gl_shader.h"
 
 #include "attributes.h"
 #include "uniforms.h"
 
 struct Mesh;
+struct ModelNormalUniformMatrix;
 
 struct Shader {
    Shader(
@@ -22,7 +23,7 @@ struct Shader {
          const std::vector<Uniform>& uniforms);
 
    void use();
-   void drawMesh(const UniformMatrix& model_matrix, const Mesh& mesh);
+   void drawMesh(const ModelNormalUniformMatrix& model_normal, const Mesh& mesh);
 
    bool has_attribute(const Attribute& attribute) const {
       return attribute_locations_.count(attribute) > 0;
