@@ -41,7 +41,7 @@ Game::Game() :
    treeVbo = new ArrayBufferObject(
          createArrayBufferObject(
             treeMesh.vertex_array,
-            shaders_.getAttributes("aPosition"),
+            shaders_.getAttributes(Attribute::VERTEX),
             3));
    treeIbo = new IndexBufferObject(
          createIndexBufferObject(

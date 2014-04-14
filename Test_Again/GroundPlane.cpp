@@ -18,7 +18,7 @@ GroundPlane::GroundPlane(Shaders& shaders) :
    vertex_buffer_object_(
          createArrayBufferObject(
             ground_vertices,
-            shaders.getAttributes("aPosition"),
+            shaders.getAttributes(Attribute::VERTEX),
             3)),
    index_buffer_object_(createIndexBufferObject(ground_indices))
 {

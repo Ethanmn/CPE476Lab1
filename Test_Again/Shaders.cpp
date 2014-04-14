@@ -2,7 +2,7 @@
 
 #include <assert.h>
 
-const std::vector<std::string> kGroundAttrs{ "aPosition" };
+const std::vector<Attribute> kGroundAttrs{ Attribute::VERTEX };
 const std::vector<std::string> kGroundUniforms{ "uProjectionMatrix", "uViewMatrix", "uModelMatrix" };
 
 Shaders::Shaders() {
@@ -29,7 +29,7 @@ GLUniformLocationMap Shaders::getUniforms(const std::string& uniform) {
    return uniforms;
 }
 
-GLAttributeLocationMap Shaders::getAttributes(const std::string& attribute) {
+GLAttributeLocationMap Shaders::getAttributes(const Attribute& attribute) {
    GLAttributeLocationMap attributes;
    for (auto& pair : shaders_) {
       attributes.insert(pair.second.attributeLocation(attribute));

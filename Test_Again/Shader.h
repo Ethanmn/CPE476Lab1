@@ -10,10 +10,12 @@
 #include "gl_adapters/gl_shader.h"
 #include "gl_adapters/uniform_matrix.h"
 
+#include "attributes.h"
+
 struct Shader {
    Shader(
          const std::string& name,
-         const std::vector<std::string>& attributes,
+         const std::vector<Attribute>& attributes,
          const std::vector<std::string>& uniforms);
 
    void use();
@@ -21,7 +23,7 @@ struct Shader {
          const IndexBufferObject& index_buffer,
          const std::vector<ArrayBufferObject>& array_buffer_objects);
 
-   bool has_attribute(const std::string& attribute) const {
+   bool has_attribute(const Attribute& attribute) const {
       return attribute_locations_.count(attribute) > 0;
    }
    bool has_uniform(const std::string& uniform) const {
@@ -31,7 +33,7 @@ struct Shader {
    // Helper method. Gets the shader handle and the attribute location of the
    // given attribute.
    std::pair<GLShaderHandle, GLAttributeLocation> attributeLocation(
-         const std::string& attribute) {
+         const Attribute& attribute) {
       return std::make_pair(
             gl_shader_.program(),
             attribute_locations_.at(attribute));
@@ -45,11 +47,6 @@ struct Shader {
             uniform_locations_.at(uniform));
    }
 
-   // Helper method. Gets all of the attributes from shaders and
-   // forms a map for use in createArrayBuffer.
-   static GLAttributeLocationMap getAttributes(
-         const std::vector<std::pair<Shader&, std::string>>& desired_attributes);
-
    void uniformMatrix(const UniformMatrix& uniform) {
       uniform.sendToShader(gl_shader_);
    }
@@ -60,7 +57,7 @@ struct Shader {
    void disableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);
 
    GLShader gl_shader_;
-   std::map<std::string, GLAttributeLocation> attribute_locations_;
+   std::map<Attribute, GLAttributeLocation> attribute_locations_;
    std::map<std::string, GLUniformLocation> uniform_locations_;
 };
 

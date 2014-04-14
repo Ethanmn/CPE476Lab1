@@ -21,7 +21,7 @@ struct Shaders {
 
    std::map<ShaderType, Shader>& getMap() { return shaders_; }
    GLUniformLocationMap getUniforms(const std::string& uniform);
-   GLAttributeLocationMap getAttributes(const std::string& attribute);
+   GLAttributeLocationMap getAttributes(const Attribute& attribute);
 
   private:
    std::map<ShaderType, Shader> shaders_;

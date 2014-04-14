@@ -77,14 +77,14 @@ namespace {
 
 Shader::Shader(
       const std::string& name,
-      const std::vector<std::string>& attributes,
+      const std::vector<Attribute>& attributes,
       const std::vector<std::string>& uniforms) :
    gl_shader_(compileAndLinkShader(kShaderPath + name + ".vert", kShaderPath + name + ".frag"))
 {
    for (const auto& attr : attributes) {
       attribute_locations_.insert(std::make_pair(
                attr,
-               gl_shader_.getAttributeLocation(attr)));
+               gl_shader_.getAttributeLocation(attribute_name(attr))));
    }
    for (const auto& uniform : uniforms) {
       uniform_locations_.insert(std::make_pair(
@@ -102,16 +102,6 @@ void Shader::drawMesh(const IndexBufferObject& index_buffer, const std::vector<A
    bindAndEnableAttributes(array_buffer_objects);
    glDrawElements(GL_TRIANGLES, index_buffer.size, GL_UNSIGNED_SHORT, 0);
    disableAttributes(array_buffer_objects);
-}
-
-//static
-std::map<GLShaderHandle, GLAttributeLocation> Shader::getAttributes(
-      const std::vector<std::pair<Shader&, std::string>>& desired_attributes) {
-   std::map<GLShaderHandle, GLAttributeLocation> attributes;
-   for (auto& pair : desired_attributes) {
-      attributes.insert(pair.first.attributeLocation(pair.second));
-   }
-   return attributes;
 }
 
 void Shader::bindIndexBuffer(const IndexBufferObject& index_buffer) {
