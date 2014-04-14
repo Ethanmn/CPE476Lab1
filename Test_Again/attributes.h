@@ -5,12 +5,15 @@
 
 enum class Attribute {
    VERTEX,
+   NORMAL,
 };
 
 inline std::string attribute_name(Attribute attribute) {
    switch (attribute) {
       case Attribute::VERTEX:
          return "aPosition";
+      case Attribute::NORMAL:
+         return "aNormal";
    }
 }
 

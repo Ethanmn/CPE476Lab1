@@ -7,6 +7,7 @@
 
 AssimpMesh treeMesh = loadMesh("../models/cube.obj");
 ArrayBufferObject* treeVbo;
+ArrayBufferObject* treeNbo;
 IndexBufferObject* treeIbo;
 
 const std::vector<float> ground_vertices{
@@ -33,7 +34,7 @@ Game::Game() :
          projectionMatrix(),
          shaders_.getUniforms(Uniform::PROJECTION)),
    view_(glm::lookAt(
-            glm::vec3(5.0f, 2.0f, 5.0f),
+            glm::vec3(-5.0f, -5.0f, -5.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
             glm::vec3(0.0f, 1.0f, 0.0f)),
          shaders_.getUniforms(Uniform::VIEW))
@@ -42,6 +43,11 @@ Game::Game() :
          createArrayBufferObject(
             treeMesh.vertex_array,
             shaders_.getAttributes(Attribute::VERTEX),
+            3));
+   treeNbo = new ArrayBufferObject(
+         createArrayBufferObject(
+            treeMesh.normal_array,
+            shaders_.getAttributes(Attribute::NORMAL),
             3));
    treeIbo = new IndexBufferObject(
          createIndexBufferObject(
@@ -52,7 +58,7 @@ void Game::step(units::MS) {
 }
 
 void Game::draw() {
-   glClear(GL_COLOR_BUFFER_BIT);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
    // TODO: move to Shaders.
    auto& shaders = shaders_.getMap();
@@ -65,11 +71,16 @@ void Game::draw() {
       shader.uniformMatrix(projection_);
       shader.uniformMatrix(view_);
 
+      //glm::mat4 model_matrix(glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)));
+      glm::mat4 model_matrix;
       shader.uniformMatrix(
-            { glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)),
+            { model_matrix,
               shaders_.getUniforms(Uniform::MODEL) });
+      shader.uniformMatrix(
+            { model_matrix,// glm::transpose(glm::inverse(model_matrix)),
+              shaders_.getUniforms(Uniform::NORMAL) });
 
-      shader.drawMesh(*treeIbo, {*treeVbo});
+      shader.drawMesh(*treeIbo, {*treeVbo, *treeNbo});
       ground_plane_.draw(shader);
    }
    shaders_.clear();

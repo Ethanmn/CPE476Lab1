@@ -18,28 +18,23 @@ AssimpMesh loadMesh(const std::string& path) {
        exit(EXIT_FAILURE);
     }
 
-    aiMesh *mesh = scene->mMeshes[0];
+    aiMesh& mesh = *scene->mMeshes[0];
     AssimpMesh ret;
-    float max_vert = 0.0f;
-    for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
-       for (int j = 0; j < 3; ++j) {
-          ret.vertex_array.push_back(mesh->mVertices[i][j]);
-          max_vert = std::max(
-                max_vert,
-                std::abs(mesh->mVertices[i][j]));
-       }
-    }
-    for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
-       for (int j = 0; j < 3; ++j) {
-          ret.vertex_array[i*3 + j] /= max_vert;
-       }
-    }
+    ret.vertex_array.insert(
+          ret.vertex_array.begin(),
+          (float*)(mesh.mVertices),
+          (float*)(mesh.mVertices) + mesh.mNumFaces * sizeof(unsigned int) * 3);
 
-    for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
+    ret.normal_array.insert(
+          ret.normal_array.begin(),
+          (float*)(mesh.mNormals),
+          (float*)(mesh.mNormals) + mesh.mNumFaces * sizeof(unsigned int) * 3);
+
+    for (unsigned int i = 0; i < mesh.mNumFaces; ++i) {
        ret.index_array.insert(
              ret.index_array.end(),
-             mesh->mFaces[i].mIndices,
-             mesh->mFaces[i].mIndices + sizeof(unsigned int) * 3);
+             mesh.mFaces[i].mIndices,
+             mesh.mFaces[i].mIndices + sizeof(unsigned int) * 3);
     }
 
     return std::move(ret);

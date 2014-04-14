@@ -2,11 +2,15 @@
 
 #include <assert.h>
 
-const std::vector<Attribute> kGroundAttrs{ Attribute::VERTEX };
+const std::vector<Attribute> kGroundAttrs{
+   Attribute::VERTEX,
+   Attribute::NORMAL
+};
 const std::vector<Uniform> kGroundUniforms{
    Uniform::MODEL,
    Uniform::VIEW,
    Uniform::PROJECTION,
+   Uniform::NORMAL,
 };
 
 Shaders::Shaders() {

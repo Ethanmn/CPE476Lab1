@@ -35,19 +35,11 @@ struct Shader {
    // Helper method. Gets the shader handle and the attribute location of the
    // given attribute.
    std::pair<GLShaderHandle, GLAttributeLocation> attributeLocation(
-         const Attribute& attribute) {
-      return std::make_pair(
-            gl_shader_.program(),
-            attribute_locations_.at(attribute));
-   }
+         const Attribute& attribute);
    // Helper method. Gets the shader handle and the uniform location of the
    // given uniform.
    std::pair<GLShaderHandle, GLUniformLocation> uniformLocation(
-         const Uniform& uniform) {
-      return std::make_pair(
-            gl_shader_.program(),
-            uniform_locations_.at(uniform));
-   }
+         const Uniform& uniform);
 
    void uniformMatrix(const UniformMatrix& uniform) {
       uniform.sendToShader(gl_shader_);
@@ -61,6 +53,7 @@ struct Shader {
    GLShader gl_shader_;
    std::map<Attribute, GLAttributeLocation> attribute_locations_;
    std::map<Uniform, GLUniformLocation> uniform_locations_;
+   const std::string program_name_;
 };
 
 #endif // SHADER_H_

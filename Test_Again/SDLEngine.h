@@ -15,6 +15,14 @@ struct SDLEngine {
       SDL_GL_MakeCurrent(window_, context_);
       glewInit();
       glClearColor(0, 0, 1, 1); // Clear to solid blue.
+
+      glClearDepth(1.0f);
+      glDepthFunc(GL_LESS);
+      glEnable(GL_DEPTH_TEST);// Enable Depth Testing
+      glDisable(GL_LIGHTING);
+      glShadeModel(GL_SMOOTH);
+      glDisable(GL_LINE_SMOOTH);
+      glEnable(GL_CULL_FACE);
    }
 
    ~SDLEngine() {
