@@ -2,6 +2,7 @@
 #define GROUND_PLANE_H_
 
 #include "gl_adapters/buffer_object.h"
+#include "mesh.h"
 
 struct Shader;
 struct Shaders;
@@ -12,8 +13,7 @@ struct GroundPlane {
    void draw(Shader& shader);
 
   private:
-   ArrayBufferObject vertex_buffer_object_;
-   IndexBufferObject index_buffer_object_;
+   Mesh mesh_;
 };
 
 #endif // GROUND_PLANE_H_

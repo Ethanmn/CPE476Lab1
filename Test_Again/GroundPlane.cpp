@@ -9,21 +9,34 @@ const std::vector<float> ground_vertices{
    -0.5, 0.5, 0.0,
    0.5, 0.5, 0.0,
 };
+const std::vector<float> ground_normals{
+   0, 0, 1,
+   0, 0, 1,
+   0, 0, 1,
+   0, 0, 1,
+};
 
 const std::vector<unsigned short> ground_indices{
-   0, 1, 2, 3, 1, 2
+   0, 2, 1, 3, 1, 2
 };
 
 GroundPlane::GroundPlane(Shaders& shaders) :
-   vertex_buffer_object_(
+   mesh_{
+      createIndexBufferObject(ground_indices),
+      {
          createArrayBufferObject(
             ground_vertices,
             shaders.getAttributes(Attribute::VERTEX),
-            3)),
-   index_buffer_object_(createIndexBufferObject(ground_indices))
+            3),
+         createArrayBufferObject(
+            ground_normals,
+            shaders.getAttributes(Attribute::NORMAL),
+            3),
+      }
+   }
 {
 }
 
 void GroundPlane::draw(Shader& shader) {
-   shader.drawMesh(index_buffer_object_, {vertex_buffer_object_});
+   shader.drawMesh(mesh_.index_buffer_object, mesh_.attribute_buffer_objects);
 }

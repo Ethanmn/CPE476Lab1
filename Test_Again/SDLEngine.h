@@ -14,7 +14,7 @@ struct SDLEngine {
       context_ = SDL_GL_CreateContext(window_);
       SDL_GL_MakeCurrent(window_, context_);
       glewInit();
-      glClearColor(0, 0, 1, 1); // Clear to solid blue.
+      glClearColor(0, 0, 0, 1); // Clear to solid blue.
 
       glClearDepth(1.0f);
       glDepthFunc(GL_LESS);
