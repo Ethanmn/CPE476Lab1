@@ -2,6 +2,7 @@
 #define GROUND_PLANE_H_
 
 #include "gl_adapters/buffer_object.h"
+#include "gl_adapters/uniform_matrix.h"
 #include "mesh.h"
 
 struct Shader;
@@ -14,6 +15,7 @@ struct GroundPlane {
 
   private:
    Mesh mesh_;
+   UniformMatrix model_matrix_;
 };
 
 #endif // GROUND_PLANE_H_

@@ -22,7 +22,7 @@ struct Shader {
          const std::vector<Uniform>& uniforms);
 
    void use();
-   void drawMesh(const Mesh& mesh);
+   void drawMesh(const UniformMatrix& model_matrix, const Mesh& mesh);
 
    bool has_attribute(const Attribute& attribute) const {
       return attribute_locations_.count(attribute) > 0;

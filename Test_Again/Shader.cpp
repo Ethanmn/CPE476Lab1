@@ -36,7 +36,8 @@ void Shader::use() {
    gl_shader_.use();
 }
 
-void Shader::drawMesh(const Mesh& mesh) {
+void Shader::drawMesh(const UniformMatrix& model_matrix, const Mesh& mesh) {
+   uniformMatrix(model_matrix);
    bindIndexBuffer(mesh.index_buffer_object);
    bindAndEnableAttributes(mesh.attribute_buffer_objects);
    glDrawElements(GL_TRIANGLES, mesh.index_buffer_object.size, GL_UNSIGNED_SHORT, 0);

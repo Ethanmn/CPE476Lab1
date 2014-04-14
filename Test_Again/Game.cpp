@@ -56,19 +56,16 @@ void Game::draw() {
 
       glm::mat4 model_matrix(glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)));
       shader.uniformMatrix(
-            { model_matrix,
-              shaders_.getUniforms(Uniform::MODEL) });
-
-      shader.uniformMatrix(
             { glm::transpose(glm::inverse(model_matrix)),
               shaders_.getUniforms(Uniform::NORMAL) });
 
-      shader.drawMesh(cube_mesh_);
+      shader.drawMesh(
+            { model_matrix,
+              shaders_.getUniforms(Uniform::MODEL)
+            },
+            cube_mesh_);
 
       model_matrix = glm::mat4();
-      shader.uniformMatrix(
-            { model_matrix,
-              shaders_.getUniforms(Uniform::MODEL) });
       shader.uniformMatrix(
             { glm::transpose(glm::inverse(model_matrix)),
               shaders_.getUniforms(Uniform::NORMAL) });
