@@ -28,7 +28,7 @@ glm::mat4 projectionMatrix() {
 }
 
 Game::Game() :
-   ground_plane_(shaders_.at(ShaderType::GROUND)),
+   ground_plane_(shaders_),
    projection_(
          projectionMatrix(),
          shaders_.getUniforms("uProjectionMatrix")),
@@ -41,7 +41,7 @@ Game::Game() :
    treeVbo = new ArrayBufferObject(
          createArrayBufferObject(
             treeMesh.vertex_array,
-            Shader::getAttributes({{ shaders_.at(ShaderType::GROUND), "aPosition" }}),
+            shaders_.getAttributes("aPosition"),
             3));
    treeIbo = new IndexBufferObject(
          createIndexBufferObject(
@@ -70,7 +70,7 @@ void Game::draw() {
               shaders_.getUniforms("uModelMatrix") });
 
       shader.drawMesh(*treeIbo, {*treeVbo});
-      ground_plane_.draw();
+      ground_plane_.draw(shader);
    }
    shaders_.clear();
 }

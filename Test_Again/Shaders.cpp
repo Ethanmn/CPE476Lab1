@@ -28,3 +28,11 @@ GLUniformLocationMap Shaders::getUniforms(const std::string& uniform) {
    }
    return uniforms;
 }
+
+GLAttributeLocationMap Shaders::getAttributes(const std::string& attribute) {
+   GLAttributeLocationMap attributes;
+   for (auto& pair : shaders_) {
+      attributes.insert(pair.second.attributeLocation(attribute));
+   }
+   return attributes;
+}

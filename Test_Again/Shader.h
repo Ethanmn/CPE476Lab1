@@ -21,6 +21,13 @@ struct Shader {
          const IndexBufferObject& index_buffer,
          const std::vector<ArrayBufferObject>& array_buffer_objects);
 
+   bool has_attribute(const std::string& attribute) const {
+      return attribute_locations_.count(attribute) > 0;
+   }
+   bool has_uniform(const std::string& uniform) const {
+      return uniform_locations_.count(uniform) > 0;
+   }
+
    // Helper method. Gets the shader handle and the attribute location of the
    // given attribute.
    std::pair<GLShaderHandle, GLAttributeLocation> attributeLocation(

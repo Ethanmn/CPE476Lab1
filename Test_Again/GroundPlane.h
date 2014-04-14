@@ -4,14 +4,14 @@
 #include "gl_adapters/buffer_object.h"
 
 struct Shader;
+struct Shaders;
 
 struct GroundPlane {
-   GroundPlane(Shader& shader);
+   GroundPlane(Shaders& shaders);
 
-   void draw();
+   void draw(Shader& shader);
 
   private:
-   Shader& shader_;
    ArrayBufferObject vertex_buffer_object_;
    IndexBufferObject index_buffer_object_;
 };
