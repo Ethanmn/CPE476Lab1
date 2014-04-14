@@ -1,5 +1,4 @@
 #include "Game.h"
-//#include "GameObject.h"
 
 int main() {
    Game game;
