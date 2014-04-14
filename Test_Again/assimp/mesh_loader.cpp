@@ -18,23 +18,22 @@ AssimpMesh loadMesh(const std::string& path) {
        exit(EXIT_FAILURE);
     }
 
+    const size_t kNumAxes = 3;
     aiMesh& mesh = *scene->mMeshes[0];
     AssimpMesh ret;
-    ret.vertex_array.insert(
-          ret.vertex_array.begin(),
+    ret.vertex_array = std::vector<float>(
           (float*)(mesh.mVertices),
-          (float*)(mesh.mVertices) + mesh.mNumFaces * sizeof(unsigned int) * 3);
+          (float*)(mesh.mVertices) + mesh.mNumVertices * kNumAxes);
 
-    ret.normal_array.insert(
-          ret.normal_array.begin(),
+    ret.normal_array = std::vector<float>(
           (float*)(mesh.mNormals),
-          (float*)(mesh.mNormals) + mesh.mNumFaces * sizeof(unsigned int) * 3);
+          (float*)(mesh.mNormals) + mesh.mNumVertices * kNumAxes);
 
     for (unsigned int i = 0; i < mesh.mNumFaces; ++i) {
        ret.index_array.insert(
              ret.index_array.end(),
              mesh.mFaces[i].mIndices,
-             mesh.mFaces[i].mIndices + sizeof(unsigned int) * 3);
+             mesh.mFaces[i].mIndices + kNumAxes);
     }
 
     return std::move(ret);

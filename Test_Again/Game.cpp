@@ -64,7 +64,15 @@ void Game::draw() {
               shaders_.getUniforms(Uniform::NORMAL) });
 
       shader.drawMesh(cube_mesh_);
-      //ground_plane_.draw(shader);
+
+      model_matrix = glm::mat4();
+      shader.uniformMatrix(
+            { model_matrix,
+              shaders_.getUniforms(Uniform::MODEL) });
+      shader.uniformMatrix(
+            { glm::transpose(glm::inverse(model_matrix)),
+              shaders_.getUniforms(Uniform::NORMAL) });
+      ground_plane_.draw(shader);
    }
    shaders_.clear();
 }
