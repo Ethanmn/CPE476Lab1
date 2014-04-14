@@ -31,12 +31,12 @@ Game::Game() :
    ground_plane_(shaders_),
    projection_(
          projectionMatrix(),
-         shaders_.getUniforms("uProjectionMatrix")),
+         shaders_.getUniforms(Uniform::PROJECTION)),
    view_(glm::lookAt(
             glm::vec3(5.0f, 2.0f, 5.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
             glm::vec3(0.0f, 1.0f, 0.0f)),
-         shaders_.getUniforms("uViewMatrix"))
+         shaders_.getUniforms(Uniform::VIEW))
 {
    treeVbo = new ArrayBufferObject(
          createArrayBufferObject(
@@ -67,7 +67,7 @@ void Game::draw() {
 
       shader.uniformMatrix(
             { glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)),
-              shaders_.getUniforms("uModelMatrix") });
+              shaders_.getUniforms(Uniform::MODEL) });
 
       shader.drawMesh(*treeIbo, {*treeVbo});
       ground_plane_.draw(shader);

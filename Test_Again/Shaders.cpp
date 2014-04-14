@@ -3,7 +3,11 @@
 #include <assert.h>
 
 const std::vector<Attribute> kGroundAttrs{ Attribute::VERTEX };
-const std::vector<std::string> kGroundUniforms{ "uProjectionMatrix", "uViewMatrix", "uModelMatrix" };
+const std::vector<Uniform> kGroundUniforms{
+   Uniform::MODEL,
+   Uniform::VIEW,
+   Uniform::PROJECTION,
+};
 
 Shaders::Shaders() {
    shaders_.insert(std::make_pair(
@@ -21,7 +25,7 @@ Shader& Shaders::at(ShaderType shader_type) {
    }
 }
 
-GLUniformLocationMap Shaders::getUniforms(const std::string& uniform) {
+GLUniformLocationMap Shaders::getUniforms(const Uniform& uniform) {
    GLUniformLocationMap uniforms;
    for (auto& pair : shaders_) {
       uniforms.insert(pair.second.uniformLocation(uniform));

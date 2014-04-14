@@ -11,12 +11,13 @@
 #include "gl_adapters/uniform_matrix.h"
 
 #include "attributes.h"
+#include "uniforms.h"
 
 struct Shader {
    Shader(
          const std::string& name,
          const std::vector<Attribute>& attributes,
-         const std::vector<std::string>& uniforms);
+         const std::vector<Uniform>& uniforms);
 
    void use();
    void drawMesh(
@@ -26,7 +27,7 @@ struct Shader {
    bool has_attribute(const Attribute& attribute) const {
       return attribute_locations_.count(attribute) > 0;
    }
-   bool has_uniform(const std::string& uniform) const {
+   bool has_uniform(const Uniform& uniform) const {
       return uniform_locations_.count(uniform) > 0;
    }
 
@@ -41,7 +42,7 @@ struct Shader {
    // Helper method. Gets the shader handle and the uniform location of the
    // given uniform.
    std::pair<GLShaderHandle, GLUniformLocation> uniformLocation(
-         const std::string& uniform) {
+         const Uniform& uniform) {
       return std::make_pair(
             gl_shader_.program(),
             uniform_locations_.at(uniform));
@@ -58,7 +59,7 @@ struct Shader {
 
    GLShader gl_shader_;
    std::map<Attribute, GLAttributeLocation> attribute_locations_;
-   std::map<std::string, GLUniformLocation> uniform_locations_;
+   std::map<Uniform, GLUniformLocation> uniform_locations_;
 };
 
 #endif // SHADER_H_

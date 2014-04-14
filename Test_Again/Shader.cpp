@@ -78,7 +78,7 @@ namespace {
 Shader::Shader(
       const std::string& name,
       const std::vector<Attribute>& attributes,
-      const std::vector<std::string>& uniforms) :
+      const std::vector<Uniform>& uniforms) :
    gl_shader_(compileAndLinkShader(kShaderPath + name + ".vert", kShaderPath + name + ".frag"))
 {
    for (const auto& attr : attributes) {
@@ -89,7 +89,7 @@ Shader::Shader(
    for (const auto& uniform : uniforms) {
       uniform_locations_.insert(std::make_pair(
                uniform,
-               gl_shader_.getUniformLocation(uniform)));
+               gl_shader_.getUniformLocation(uniform_name(uniform))));
    }
 }
 
