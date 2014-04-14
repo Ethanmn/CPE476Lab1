@@ -3,10 +3,11 @@
 
 #include <glm/glm.hpp>
 
+#include "gl_adapters/uniform_matrix.h"
 #include "GroundPlane.h"
+#include "mesh.h"
 #include "SDLEngine.h"
 #include "Shaders.h"
-#include "gl_adapters/uniform_matrix.h"
 #include "units.h"
 
 class Game {
@@ -15,6 +16,7 @@ class Game {
    GroundPlane ground_plane_;
    UniformMatrix projection_;
    UniformMatrix view_;
+   Mesh cube_mesh_;
 
    void step(units::MS dt);
    void draw();

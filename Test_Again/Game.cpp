@@ -5,11 +5,6 @@
 
 #include "assimp/mesh_loader.h"
 
-AssimpMesh treeMesh = loadMesh("../models/cube.obj");
-ArrayBufferObject* treeVbo;
-ArrayBufferObject* treeNbo;
-IndexBufferObject* treeIbo;
-
 const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,
    0.5, -0.5, 0.0,
@@ -37,21 +32,9 @@ Game::Game() :
             glm::vec3(-5.0f, -5.0f, -5.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
             glm::vec3(0.0f, 1.0f, 0.0f)),
-         shaders_.getUniforms(Uniform::VIEW))
+         shaders_.getUniforms(Uniform::VIEW)),
+   cube_mesh_(Mesh::fromAssimpMesh(shaders_, loadMesh("../models/cube.obj")))
 {
-   treeVbo = new ArrayBufferObject(
-         createArrayBufferObject(
-            treeMesh.vertex_array,
-            shaders_.getAttributes(Attribute::VERTEX),
-            3));
-   treeNbo = new ArrayBufferObject(
-         createArrayBufferObject(
-            treeMesh.normal_array,
-            shaders_.getAttributes(Attribute::NORMAL),
-            3));
-   treeIbo = new IndexBufferObject(
-         createIndexBufferObject(
-            treeMesh.index_array));
 }
 
 void Game::step(units::MS) {
@@ -80,7 +63,7 @@ void Game::draw() {
             { model_matrix,// glm::transpose(glm::inverse(model_matrix)),
               shaders_.getUniforms(Uniform::NORMAL) });
 
-      shader.drawMesh(*treeIbo, {*treeVbo, *treeNbo});
+      shader.drawMesh(cube_mesh_.index_buffer_object, cube_mesh_.attribute_buffer_objects);
       ground_plane_.draw(shader);
    }
    shaders_.clear();
