@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "mesh.h"
+
 const std::string kShaderPath = "../shaders/";
 
 Shader::Shader(
@@ -34,11 +36,11 @@ void Shader::use() {
    gl_shader_.use();
 }
 
-void Shader::drawMesh(const IndexBufferObject& index_buffer, const std::vector<ArrayBufferObject>& array_buffer_objects) {
-   bindIndexBuffer(index_buffer);
-   bindAndEnableAttributes(array_buffer_objects);
-   glDrawElements(GL_TRIANGLES, index_buffer.size, GL_UNSIGNED_SHORT, 0);
-   disableAttributes(array_buffer_objects);
+void Shader::drawMesh(const Mesh& mesh) {
+   bindIndexBuffer(mesh.index_buffer_object);
+   bindAndEnableAttributes(mesh.attribute_buffer_objects);
+   glDrawElements(GL_TRIANGLES, mesh.index_buffer_object.size, GL_UNSIGNED_SHORT, 0);
+   disableAttributes(mesh.attribute_buffer_objects);
 }
 
 std::pair<GLShaderHandle, GLAttributeLocation> Shader::attributeLocation(

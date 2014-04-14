@@ -38,5 +38,5 @@ GroundPlane::GroundPlane(Shaders& shaders) :
 }
 
 void GroundPlane::draw(Shader& shader) {
-   shader.drawMesh(mesh_.index_buffer_object, mesh_.attribute_buffer_objects);
+   shader.drawMesh(mesh_);
 }

@@ -13,6 +13,8 @@
 #include "attributes.h"
 #include "uniforms.h"
 
+struct Mesh;
+
 struct Shader {
    Shader(
          const std::string& name, // e.g. name="ground" for ground.vert and ground.frag
@@ -20,9 +22,7 @@ struct Shader {
          const std::vector<Uniform>& uniforms);
 
    void use();
-   void drawMesh(
-         const IndexBufferObject& index_buffer,
-         const std::vector<ArrayBufferObject>& array_buffer_objects);
+   void drawMesh(const Mesh& mesh);
 
    bool has_attribute(const Attribute& attribute) const {
       return attribute_locations_.count(attribute) > 0;
