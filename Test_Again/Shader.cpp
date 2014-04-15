@@ -5,7 +5,7 @@
 #include <sstream>
 
 #include "mesh.h"
-#include "model_normal_uniform_matrix.h"
+#include "model_view_uniform_matrix.h"
 
 const std::string kShaderPath = "../shaders/";
 
@@ -37,9 +37,9 @@ void Shader::use() {
    gl_shader_.use();
 }
 
-void Shader::drawMesh(const ModelNormalUniformMatrix& model_normal, const Mesh& mesh) {
-   uniformMatrix(model_normal.model());
-   uniformMatrix(model_normal.normal());
+void Shader::drawMesh(const AffineUniforms& affine_uniforms, const Mesh& mesh) {
+   uniformMatrix(affine_uniforms.model_view_uniform);
+   uniformMatrix(affine_uniforms.normal_uniform);
    bindIndexBuffer(mesh.index_buffer_object);
    bindAndEnableAttributes(mesh.attribute_buffer_objects);
    glDrawElements(GL_TRIANGLES, mesh.index_buffer_object.size, GL_UNSIGNED_SHORT, 0);

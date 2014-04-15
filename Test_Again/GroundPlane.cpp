@@ -34,12 +34,10 @@ GroundPlane::GroundPlane(Shaders& shaders) :
             3),
       }
    },
-   model_normal_uniform_(
-         shaders,
-         glm::mat4())
+   model_matrix_(shaders, glm::mat4())
 {
 }
 
-void GroundPlane::draw(Shader& shader) {
-   shader.drawMesh(model_normal_uniform_, mesh_);
+void GroundPlane::draw(Shader& shader, const glm::mat4& view) {
+   shader.drawMesh(model_matrix_.calculateAffineUniforms(view), mesh_);
 }

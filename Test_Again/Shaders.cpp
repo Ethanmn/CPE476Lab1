@@ -7,8 +7,7 @@ const std::vector<Attribute> kGroundAttrs{
    Attribute::NORMAL
 };
 const std::vector<Uniform> kGroundUniforms{
-   Uniform::MODEL,
-   Uniform::VIEW,
+   Uniform::MODEL_VIEW,
    Uniform::PROJECTION,
    Uniform::NORMAL,
 };

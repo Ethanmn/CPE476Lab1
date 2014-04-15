@@ -15,7 +15,7 @@ class Game {
    Shaders shaders_;
    GroundPlane ground_plane_;
    UniformMatrix projection_;
-   UniformMatrix view_;
+   glm::mat4 view_;
    Mesh cube_mesh_;
 
    void step(units::MS dt);

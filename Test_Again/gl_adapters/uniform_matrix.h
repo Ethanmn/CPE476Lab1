@@ -21,4 +21,8 @@ struct UniformMatrix {
    GLUniformLocationMap uniforms_;
 };
 
+struct AffineUniforms {
+   UniformMatrix model_view_uniform, normal_uniform;
+};
+
 #endif // UNIFORM_MATRIX_H_

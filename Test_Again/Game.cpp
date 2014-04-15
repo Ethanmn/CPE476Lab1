@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "assimp/mesh_loader.h"
+#include "model_view_uniform_matrix.h"
 
 const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,
@@ -29,10 +30,9 @@ Game::Game() :
          projectionMatrix(),
          shaders_.getUniforms(Uniform::PROJECTION)),
    view_(glm::lookAt(
-            glm::vec3(-5.0f, -5.0f, -5.0f),
+            glm::vec3(3.0f, 3.0f, 3.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
-            glm::vec3(0.0f, 1.0f, 0.0f)),
-         shaders_.getUniforms(Uniform::VIEW)),
+            glm::vec3(0.0f, 1.0f, 0.0f))),
    cube_mesh_(Mesh::fromAssimpMesh(shaders_, loadMesh("../models/cube.obj")))
 {
 }
@@ -52,20 +52,19 @@ void Game::draw() {
 
       // send uniforms to the shader
       shader.uniformMatrix(projection_);
-      shader.uniformMatrix(view_);
 
       glm::mat4 model_matrix(
             glm::rotate(
-               glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)),
-               30.0f,
-               glm::vec3(1.0f, 1.0f, 0.0f)));
+               glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f)),
+               0.0f,
+               glm::vec3(0.0f, 1.0f, 0.0f)));
       shader.drawMesh(
-            ModelNormalUniformMatrix(
+            ModelViewUniformMatrix(
                shaders_,
-               model_matrix),
+               model_matrix).calculateAffineUniforms(view_),
             cube_mesh_);
 
-      ground_plane_.draw(shader);
+      ground_plane_.draw(shader, view_);
    }
    shaders_.clear();
 }
