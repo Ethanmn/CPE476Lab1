@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 
+#include "camera.h"
 #include "gl_adapters/uniform_matrix.h"
 #include "GroundPlane.h"
 #include "input.h"
@@ -16,7 +17,7 @@ class Game {
    Shaders shaders_;
    GroundPlane ground_plane_;
    UniformMatrix projection_;
-   glm::mat4 view_;
+   Camera camera_;
    Mesh cube_mesh_;
    Input input_;
 

@@ -1,5 +1,7 @@
 #include "GroundPlane.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Shader.h"
 #include "Shaders.h"
 
@@ -34,7 +36,8 @@ GroundPlane::GroundPlane(Shaders& shaders) :
             3),
       }
    },
-   model_matrix_(shaders, glm::mat4())
+   model_matrix_(shaders,
+         glm::rotate(glm::scale(glm::mat4(), glm::vec3(20.0f)), 90.0f, glm::vec3(1, 0, 0)))
 {
 }
 

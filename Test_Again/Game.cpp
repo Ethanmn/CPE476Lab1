@@ -5,15 +5,6 @@
 
 #include "assimp/mesh_loader.h"
 #include "model_view_uniform_matrix.h"
-
-namespace {
-   void translateMatrix(glm::mat4& matrix, const glm::vec3& local_direction, float amount) {
-      matrix = glm::translate(
-            matrix,
-            glm::normalize(glm::vec3(glm::vec4(local_direction, 0) * matrix)) * amount);
-   }
-};
-
 #include "vec_constants.h"
 
 const std::vector<float> ground_vertices{
@@ -39,10 +30,6 @@ Game::Game() :
    projection_(
          projectionMatrix(),
          shaders_.getUniforms(Uniform::PROJECTION)),
-   view_(glm::lookAt(
-            glm::vec3(3.0f, 3.0f, 3.0f),
-            glm::vec3(0.0f, 0.0f, 0.0f),
-            kUpVec)),
    cube_mesh_(Mesh::fromAssimpMesh(shaders_, loadMesh("../models/cube.obj")))
 {
 }
@@ -71,10 +58,20 @@ void Game::draw() {
       shader.drawMesh(
             ModelViewUniformMatrix(
                shaders_,
-               model_matrix).calculateAffineUniforms(view_),
+               model_matrix).calculateAffineUniforms(camera_.viewMatrix()),
+            cube_mesh_);
+       model_matrix = glm::mat4(
+            glm::rotate(
+               glm::translate(glm::mat4(), glm::vec3(0.0f, 3.0f, 0.0f)),
+               0.0f,
+               glm::vec3(0.0f, 1.0f, 0.0f)));
+      shader.drawMesh(
+            ModelViewUniformMatrix(
+               shaders_,
+               model_matrix).calculateAffineUniforms(camera_.viewMatrix()),
             cube_mesh_);
 
-      ground_plane_.draw(shader, view_);
+      ground_plane_.draw(shader, camera_.viewMatrix());
    }
    shaders_.clear();
 }
@@ -103,15 +100,28 @@ void Game::mainLoop() {
          if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE)) {
             running = false;
          }
+         const float kMoveAmount = 0.2f;
          if (input.isKeyHeld(SDL_SCANCODE_W)) {
-            translateMatrix(view_, kForwardVec, 0.2f);
+            camera_.translateLocal(kMoveAmount, kForwardVec);
          } else if (input.isKeyHeld(SDL_SCANCODE_S)) {
-            translateMatrix(view_, kBackwardVec, 0.2f);
+            camera_.translateLocal(kMoveAmount, kBackwardVec);
          }
          if (input.isKeyHeld(SDL_SCANCODE_A)) {
-            translateMatrix(view_, kLeftVec, 0.2f);
+            camera_.translateLocal(kMoveAmount, kLeftVec);
          } else if (input.isKeyHeld(SDL_SCANCODE_D)) {
-            translateMatrix(view_, kRightVec, 0.2f);
+            camera_.translateLocal(kMoveAmount, kRightVec);
+         }
+
+         const float kAngle = 5.0f;
+         if (input.isKeyHeld(SDL_SCANCODE_LEFT)) {
+            camera_.rotateLocal(kAngle, kDownVec);
+         } else if (input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
+            camera_.rotateLocal(kAngle, kUpVec);
+         }
+         if (input.isKeyHeld(SDL_SCANCODE_UP)) {
+            camera_.rotateLocal(kAngle, kLeftVec);
+         } else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+            camera_.rotateLocal(kAngle, kRightVec);
          }
       }
 
