@@ -5,6 +5,7 @@
 
 #include "gl_adapters/uniform_matrix.h"
 #include "GroundPlane.h"
+#include "input.h"
 #include "mesh.h"
 #include "SDLEngine.h"
 #include "Shaders.h"
@@ -17,6 +18,7 @@ class Game {
    UniformMatrix projection_;
    glm::mat4 view_;
    Mesh cube_mesh_;
+   Input input_;
 
    void step(units::MS dt);
    void draw();
