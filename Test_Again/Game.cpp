@@ -14,14 +14,7 @@ namespace {
    }
 };
 
-const glm::vec3 kUpVec(0, 1, 0);
-const glm::vec3 kDownVec(0, -1, 0);
-
-const glm::vec3 kLeftVec(1, 0, 0);
-const glm::vec3 kRightVec(-1, 0, 0);
-
-const glm::vec3 kForwardVec(0, 0, 1);
-const glm::vec3 kBackwardVec(0, 0, -1);
+#include "vec_constants.h"
 
 const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,

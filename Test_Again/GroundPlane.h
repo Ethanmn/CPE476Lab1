@@ -3,7 +3,6 @@
 
 #include "gl_adapters/uniform_matrix.h"
 #include "mesh.h"
-
 #include "model_view_uniform_matrix.h"
 
 struct Shader;
