@@ -6,6 +6,23 @@
 #include "assimp/mesh_loader.h"
 #include "model_view_uniform_matrix.h"
 
+namespace {
+   void translateMatrix(glm::mat4& matrix, const glm::vec3& local_direction, float amount) {
+      matrix = glm::translate(
+            matrix,
+            glm::normalize(glm::vec3(glm::vec4(local_direction, 0) * matrix)) * amount);
+   }
+};
+
+const glm::vec3 kUpVec(0, 1, 0);
+const glm::vec3 kDownVec(0, -1, 0);
+
+const glm::vec3 kLeftVec(1, 0, 0);
+const glm::vec3 kRightVec(-1, 0, 0);
+
+const glm::vec3 kForwardVec(0, 0, 1);
+const glm::vec3 kBackwardVec(0, 0, -1);
+
 const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,
    0.5, -0.5, 0.0,
@@ -32,7 +49,7 @@ Game::Game() :
    view_(glm::lookAt(
             glm::vec3(3.0f, 3.0f, 3.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
-            glm::vec3(0.0f, 1.0f, 0.0f))),
+            kUpVec)),
    cube_mesh_(Mesh::fromAssimpMesh(shaders_, loadMesh("../models/cube.obj")))
 {
 }
@@ -94,10 +111,14 @@ void Game::mainLoop() {
             running = false;
          }
          if (input.isKeyHeld(SDL_SCANCODE_W)) {
+            translateMatrix(view_, kForwardVec, 0.2f);
          } else if (input.isKeyHeld(SDL_SCANCODE_S)) {
+            translateMatrix(view_, kBackwardVec, 0.2f);
          }
          if (input.isKeyHeld(SDL_SCANCODE_A)) {
+            translateMatrix(view_, kLeftVec, 0.2f);
          } else if (input.isKeyHeld(SDL_SCANCODE_D)) {
+            translateMatrix(view_, kRightVec, 0.2f);
          }
       }
 
