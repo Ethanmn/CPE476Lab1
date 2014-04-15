@@ -89,7 +89,17 @@ void Game::mainLoop() {
             }
          }
       }
-      // Handle input
+      { // Handle input
+         if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE)) {
+            running = false;
+         }
+         if (input.isKeyHeld(SDL_SCANCODE_W)) {
+         } else if (input.isKeyHeld(SDL_SCANCODE_S)) {
+         }
+         if (input.isKeyHeld(SDL_SCANCODE_A)) {
+         } else if (input.isKeyHeld(SDL_SCANCODE_D)) {
+         }
+      }
 
       {
          const units::MS current_time = SDL_GetTicks();
