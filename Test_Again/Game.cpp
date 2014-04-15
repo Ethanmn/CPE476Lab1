@@ -54,7 +54,11 @@ void Game::draw() {
       shader.uniformMatrix(projection_);
       shader.uniformMatrix(view_);
 
-      glm::mat4 model_matrix(glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)));
+      glm::mat4 model_matrix(
+            glm::rotate(
+               glm::translate(glm::mat4(), glm::vec3(0.0f, -2.0f, -0.0f)),
+               30.0f,
+               glm::vec3(1.0f, 1.0f, 0.0f)));
       shader.drawMesh(
             ModelNormalUniformMatrix(
                shaders_,
