@@ -88,13 +88,15 @@ void GLShader::use() {
    glUseProgram(program_);
 }
 
-void GLShader::uniformMat4(
+template <>
+void GLShader::uniform<glm::mat4>(
       const GLUniformLocationMap& uniforms,
       const glm::mat4& data) {
    uniformMatrix4fv(uniforms.at(program_), glm::value_ptr(data));
 }
 
-void GLShader::uniformFloat(const GLUniformLocationMap& uniforms, float data) {
+template <>
+void GLShader::uniform<float>(const GLUniformLocationMap& uniforms, const float& data) {
    glUniform1f(uniforms.at(program_), data);
 }
 

@@ -3,5 +3,5 @@
 #include "graphics/gl_adapters/gl_shader.h"
 
 void UniformMatrix::sendToShader(GLShader& shader) const {
-   shader.uniformMat4(uniforms_, matrix);
+   shader.uniform(uniforms_, matrix);
 }

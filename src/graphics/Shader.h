@@ -48,7 +48,7 @@ struct Shader {
    }
 
    void uniformFloat(const GLUniformLocationMap& uniform, float data) {
-      gl_shader_.uniformFloat(uniform, data);
+      gl_shader_.uniform(uniform, data);
    }
 
   private:

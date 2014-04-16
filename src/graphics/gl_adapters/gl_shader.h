@@ -17,8 +17,8 @@ struct GLShader {
 
    void use();
 
-   void uniformMat4(const GLUniformLocationMap& uniforms, const glm::mat4& data);
-   void uniformFloat(const GLUniformLocationMap& uniforms, float data);
+   template <typename T>
+   void uniform(const GLUniformLocationMap& uniforms, const T& data);
 
    void bindAndEnableAttribute(const ArrayBufferObject& array_buffer);
    void disableAttribute(const ArrayBufferObject& array_buffer);
