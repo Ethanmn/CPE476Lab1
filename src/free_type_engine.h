@@ -4,17 +4,17 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-struct FreeTypeEngine {
-   FreeTypeEngine() {
-      FT_Library ft;
+#include <map>
+#include <string>
 
-      if(FT_Init_FreeType(&ft)) {
-         fprintf(stderr, "Could not init freetype library\n");
-         exit(EXIT_FAILURE);
-      }
-   }
+struct FreeTypeEngine {
+   FreeTypeEngine();
+
+   void loadFont(const std::string& font);
 
   private:
+   FT_Library library_;
+   std::map<std::string, FT_Face> fonts_;
 };
 
 #endif // FREE_TYPE_ENGINE_H_

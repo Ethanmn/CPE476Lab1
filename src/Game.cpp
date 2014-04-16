@@ -40,6 +40,8 @@ Game::Game() :
    glShadeModel(GL_SMOOTH);
    glDisable(GL_LINE_SMOOTH);
    glEnable(GL_CULL_FACE);
+
+   free_type_engine_.loadFont("/usr/share/fonts/TTF/DejaVuSans.ttf");
 }
 
 void Game::step(units::MS dt) {
