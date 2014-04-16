@@ -17,6 +17,7 @@ GameObject::GameObject(
    {}
 
 void GameObject::step(units::MS dt, const GroundPlane& ground_plane) {
+   if (!should_move_) return;
    const glm::vec3 delta = velocity_ * static_cast<float>(dt);
    const glm::vec3 new_center = center_ + delta;
    if (Bounds(new_center.x - kRadius,

@@ -46,6 +46,15 @@ void Game::step(units::MS dt) {
    for (auto& game_object : game_objects_) {
       game_object.step(dt, ground_plane_);
    }
+   for (auto& go1 : game_objects_) {
+      for (auto& go2 : game_objects_) {
+         if (&go1 == &go2) continue;
+         if (go1.bounding_sphere().collides(go2.bounding_sphere())) {
+            go1.onCollision();
+            go2.onCollision();
+         }
+      }
+   }
 }
 
 void Game::draw() {
@@ -76,11 +85,13 @@ void Game::mainLoop() {
    bool running = true;
    SDL_Event event;
    units::MS previous_time = SDL_GetTicks();
-   game_objects_.push_back(
-         GameObject(
-            ground_plane_,
-            cube_mesh_,
-            shaders_));
+   for (size_t i = 0; i < 5; ++i) {
+      game_objects_.push_back(
+            GameObject(
+               ground_plane_,
+               cube_mesh_,
+               shaders_));
+   }
    while (running) {
       {  // Collect input
          input.beginFrame();
