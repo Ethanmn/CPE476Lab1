@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "gl_adapters/gl_types.h"
+#include "graphics/gl_adapters/gl_types.h"
 
 struct IndexBufferObject {
    GLBufferHandle handle; // Handle for where the Array Buffer is stored.

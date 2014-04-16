@@ -1,6 +1,6 @@
 #include "mesh.h"
 
-#include "assimp/mesh_loader.h"
+#include "graphics/assimp/mesh_loader.h"
 #include "Shaders.h"
 
 //static

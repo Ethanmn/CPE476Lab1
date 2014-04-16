@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "camera.h"
-#include "gl_adapters/uniform_matrix.h"
+#include "graphics/gl_adapters/uniform_matrix.h"
 #include "GroundPlane.h"
 #include "input.h"
 #include "mesh.h"

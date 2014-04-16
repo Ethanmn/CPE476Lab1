@@ -2,7 +2,7 @@
 #define MESH_H_
 
 #include "attributes.h"
-#include "gl_adapters/buffer_object.h"
+#include "graphics/gl_adapters/buffer_object.h"
 
 struct AssimpMesh;
 struct Shaders;

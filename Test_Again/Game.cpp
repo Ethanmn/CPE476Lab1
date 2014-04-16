@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
-#include "assimp/mesh_loader.h"
+#include "graphics/assimp/mesh_loader.h"
 #include "model_view_uniform_matrix.h"
 #include "vec_constants.h"
 

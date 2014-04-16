@@ -1,7 +1,7 @@
 #ifndef MODEL_VIEW_UNIFORM_MATRIX_H_
 #define MODEL_VIEW_UNIFORM_MATRIX_H_
 
-#include "gl_adapters/uniform_matrix.h"
+#include "graphics/gl_adapters/uniform_matrix.h"
 
 struct Shaders;
 

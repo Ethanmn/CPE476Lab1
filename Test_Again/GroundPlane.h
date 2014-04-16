@@ -1,7 +1,7 @@
 #ifndef GROUND_PLANE_H_
 #define GROUND_PLANE_H_
 
-#include "gl_adapters/uniform_matrix.h"
+#include "graphics/gl_adapters/uniform_matrix.h"
 #include "mesh.h"
 #include "model_view_uniform_matrix.h"
 

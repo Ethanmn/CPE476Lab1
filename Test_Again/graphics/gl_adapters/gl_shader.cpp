@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "gl_adapters/buffer_object.h"
+#include "graphics/gl_adapters/buffer_object.h"
 
 namespace {
    void uniformMatrix4fv(GLint location, const GLfloat *value) {

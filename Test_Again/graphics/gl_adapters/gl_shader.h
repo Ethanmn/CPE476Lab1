@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <string>
 
-#include "gl_adapters/gl_types.h"
+#include "graphics/gl_adapters/gl_types.h"
 
 struct ArrayBufferObject;
 struct IndexBufferObject;

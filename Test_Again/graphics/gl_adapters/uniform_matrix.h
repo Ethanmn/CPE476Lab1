@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include "gl_adapters/gl_types.h"
+#include "graphics/gl_adapters/gl_types.h"
 
 struct GLShader;
 

@@ -4,8 +4,8 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "gl_adapters/array_buffer_object.h"
-#include "gl_adapters/index_buffer_object.h"
+#include "graphics/gl_adapters/array_buffer_object.h"
+#include "graphics/gl_adapters/index_buffer_object.h"
 
 template <typename T>
 GLBufferHandle createBufferObject(const std::vector<T>& data) {

@@ -6,9 +6,9 @@
 #include <string>
 #include <vector>
 
-#include "gl_adapters/buffer_object.h"
-#include "gl_adapters/uniform_matrix.h"
-#include "gl_adapters/gl_shader.h"
+#include "graphics/gl_adapters/buffer_object.h"
+#include "graphics/gl_adapters/uniform_matrix.h"
+#include "graphics/gl_adapters/gl_shader.h"
 
 #include "attributes.h"
 #include "uniforms.h"
