@@ -6,6 +6,7 @@
 enum class Attribute {
    VERTEX,
    NORMAL,
+   TEX_COORD,
 };
 
 inline std::string attribute_name(Attribute attribute) {
@@ -14,6 +15,8 @@ inline std::string attribute_name(Attribute attribute) {
          return "aPosition";
       case Attribute::NORMAL:
          return "aNormal";
+      case Attribute::TEX_COORD:
+         return "aTexCoord";
    }
 }
 

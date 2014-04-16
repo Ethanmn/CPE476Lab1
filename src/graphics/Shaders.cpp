@@ -2,6 +2,15 @@
 
 #include <assert.h>
 
+const std::vector<Attribute> kTextAttrs{
+   Attribute::VERTEX,
+   Attribute::TEX_COORD,
+};
+const std::vector<Uniform> kTextUniforms{
+   Uniform::TEXTURE,
+   Uniform::COLOR,
+};
+
 const std::vector<Attribute> kGroundAttrs{
    Attribute::VERTEX,
    Attribute::NORMAL
@@ -17,6 +26,9 @@ Shaders::Shaders() {
    shaders_.insert(std::make_pair(
             ShaderType::GROUND,
             Shader("ground", kGroundAttrs, kGroundUniforms)));
+   shaders_.insert(std::make_pair(
+            ShaderType::TEXT,
+            Shader("text", kTextAttrs, kTextUniforms)));
 }
 
 Shader& Shaders::at(ShaderType shader_type) {
