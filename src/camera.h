@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 
+#include "bounding_sphere.h"
 #include "vec_constants.h"
 
 struct Camera {
@@ -17,6 +18,8 @@ struct Camera {
    }
 
    glm::mat4 viewMatrix() const;
+
+   BoundingSphere bounding_sphere() const { return { world_position_, 1.0f }; }
 
   private:
    glm::vec3 unitDirection() const;

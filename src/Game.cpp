@@ -45,6 +45,9 @@ Game::Game() :
 void Game::step(units::MS dt) {
    for (auto& game_object : game_objects_) {
       game_object.step(dt, ground_plane_);
+      if (camera_.bounding_sphere().collides(game_object.bounding_sphere())) {
+         game_object.onCameraCollision();
+      }
    }
    for (auto& go1 : game_objects_) {
       for (auto& go2 : game_objects_) {

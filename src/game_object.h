@@ -22,11 +22,14 @@ struct GameObject {
    void draw(Shader& shader, const glm::mat4& view);
 
    BoundingSphere bounding_sphere() const { return { center_, kRadius}; }
-   void onCollision() { should_move_ = false; }
+   void onCollision() { should_blue_ = !should_blue_; }
+
+   void onCameraCollision() { should_move_ = false; }
 
   private:
    const float kRadius = 1.0f;
    bool should_move_ = true;
+   bool should_blue_ = false;
    glm::vec3 center_;
    glm::vec3 velocity_;
 

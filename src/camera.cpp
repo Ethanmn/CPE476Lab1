@@ -12,6 +12,7 @@ Camera::Camera() :
 
 void Camera::translateForward(float amount) {
    world_position_ += amount * unitDirection();
+   world_position_.y = std::max(0.0f, world_position_.y);
 }
 
 void Camera::translateStrafe(float amount) {
