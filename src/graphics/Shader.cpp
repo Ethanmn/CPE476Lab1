@@ -16,11 +16,13 @@ Shader::Shader(
    gl_shader_(GLShader::compileAndLinkShader(kShaderPath + name + ".vert", kShaderPath + name + ".frag")),
    program_name_(name)
 {
-   std::cout << "Successfully compiled/linked shader: "
+#ifdef SHADER_WARN
+   std::clog << "Successfully compiled/linked shader: "
       << name
       << " as program: "
       << gl_shader_.program()
       << std::endl;
+#endif
    for (const auto& attr : attributes) {
       attribute_locations_.insert(std::make_pair(
                attr,
@@ -49,7 +51,7 @@ void Shader::drawMesh(const AffineUniforms& affine_uniforms, const Mesh& mesh) {
 boost::optional<std::pair<GLShaderHandle, GLAttributeLocation>> Shader::attributeLocation(
       const Attribute& attribute) {
    if (attribute_locations_.count(attribute) == 0) {
-#ifdef WARN_0
+#ifdef SHADER_WARN
       std::clog << "Could not find attribute: " << attribute_name(attribute) <<
          " in shader program: " << program_name_ << std::endl;
 #endif
@@ -63,7 +65,7 @@ boost::optional<std::pair<GLShaderHandle, GLAttributeLocation>> Shader::attribut
 boost::optional<std::pair<GLShaderHandle, GLUniformLocation>> Shader::uniformLocation(
       const Uniform& uniform) {
    if (uniform_locations_.count(uniform) == 0) {
-#ifdef WARN_0
+#ifdef SHADER_WARN
       std::clog << "Could not find uniform: " << uniform_name(uniform) <<
          " in shader program: " << program_name_ << std::endl;
 #endif
