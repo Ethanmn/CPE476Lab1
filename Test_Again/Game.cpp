@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "graphics/assimp/mesh_loader.h"
-#include "model_view_uniform_matrix.h"
+#include "graphics/model_view_uniform_matrix.h"
 #include "vec_constants.h"
 
 const std::vector<float> ground_vertices{
@@ -32,6 +32,14 @@ Game::Game() :
          shaders_.getUniforms(Uniform::PROJECTION)),
    cube_mesh_(Mesh::fromAssimpMesh(shaders_, loadMesh("../models/cube.obj")))
 {
+   glClearColor(0, 0, 0, 1); // Clear to solid blue.
+   glClearDepth(1.0f);
+   glDepthFunc(GL_LESS);
+   glEnable(GL_DEPTH_TEST);// Enable Depth Testing
+   glDisable(GL_LIGHTING);
+   glShadeModel(GL_SMOOTH);
+   glDisable(GL_LINE_SMOOTH);
+   glEnable(GL_CULL_FACE);
 }
 
 void Game::step(units::MS) {

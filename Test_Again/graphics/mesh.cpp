@@ -1,7 +1,7 @@
-#include "mesh.h"
+#include "graphics/mesh.h"
 
 #include "graphics/assimp/mesh_loader.h"
-#include "Shaders.h"
+#include "graphics/Shaders.h"
 
 //static
 Mesh Mesh::fromAssimpMesh(Shaders& shaders, const AssimpMesh& mesh) {

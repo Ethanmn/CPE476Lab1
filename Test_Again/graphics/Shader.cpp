@@ -1,11 +1,11 @@
-#include "Shader.h"
+#include "graphics/Shader.h"
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
-#include "mesh.h"
-#include "model_view_uniform_matrix.h"
+#include "graphics/mesh.h"
+#include "graphics/model_view_uniform_matrix.h"
 
 const std::string kShaderPath = "../shaders/";
 

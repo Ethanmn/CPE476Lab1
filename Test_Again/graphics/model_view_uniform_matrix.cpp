@@ -1,6 +1,6 @@
-#include "model_view_uniform_matrix.h"
+#include "graphics/model_view_uniform_matrix.h"
 
-#include "Shaders.h"
+#include "graphics/Shaders.h"
 
 ModelViewUniformMatrix::ModelViewUniformMatrix(Shaders& shaders, const glm::mat4& model_matrix) :
    model_matrix(model_matrix),

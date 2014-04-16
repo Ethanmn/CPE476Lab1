@@ -2,8 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Shader.h"
-#include "Shaders.h"
+#include "graphics/Shader.h"
+#include "graphics/Shaders.h"
 
 const std::vector<float> ground_vertices{
    -0.5, -0.5, 0.0,

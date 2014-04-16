@@ -10,8 +10,8 @@
 #include "graphics/gl_adapters/uniform_matrix.h"
 #include "graphics/gl_adapters/gl_shader.h"
 
-#include "attributes.h"
-#include "uniforms.h"
+#include "graphics/attributes.h"
+#include "graphics/uniforms.h"
 
 struct Mesh;
 struct ModelViewUniformMatrix;

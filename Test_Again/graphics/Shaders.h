@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "Shader.h"
+#include "graphics/Shader.h"
 
 enum class ShaderType {
    GROUND,

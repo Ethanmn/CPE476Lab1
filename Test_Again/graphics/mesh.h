@@ -1,7 +1,7 @@
 #ifndef MESH_H_
 #define MESH_H_
 
-#include "attributes.h"
+#include "graphics/attributes.h"
 #include "graphics/gl_adapters/buffer_object.h"
 
 struct AssimpMesh;

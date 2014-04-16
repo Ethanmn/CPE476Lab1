@@ -7,9 +7,9 @@
 #include "graphics/gl_adapters/uniform_matrix.h"
 #include "GroundPlane.h"
 #include "input.h"
-#include "mesh.h"
-#include "SDLEngine.h"
-#include "Shaders.h"
+#include "graphics/mesh.h"
+#include "graphics/SDLEngine.h"
+#include "graphics/Shaders.h"
 #include "units.h"
 
 class Game {

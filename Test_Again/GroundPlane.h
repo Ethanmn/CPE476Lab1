@@ -2,8 +2,8 @@
 #define GROUND_PLANE_H_
 
 #include "graphics/gl_adapters/uniform_matrix.h"
-#include "mesh.h"
-#include "model_view_uniform_matrix.h"
+#include "graphics/mesh.h"
+#include "graphics/model_view_uniform_matrix.h"
 
 struct Shader;
 struct Shaders;
