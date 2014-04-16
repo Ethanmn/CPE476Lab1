@@ -67,14 +67,16 @@ void Game::draw() {
       auto& shader = pair.second;
       shader.use();
 
-      // send uniforms to the shader
-      shader.uniformMatrix(projection_);
+      if (pair.first == ShaderType::GROUND) {
+         // send uniforms to the shader
+         shader.uniformMatrix(projection_);
+         for (auto& game_object : game_objects_) {
+            game_object.draw(shader, view);
+         }
 
-      for (auto& game_object : game_objects_) {
-         game_object.draw(shader, view);
+         ground_plane_.draw(shader, view);
+      } else if (pair.first == ShaderType::TEXT) {
       }
-
-      ground_plane_.draw(shader, view);
    }
    shaders_.clear();
 }

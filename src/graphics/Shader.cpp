@@ -46,26 +46,28 @@ void Shader::drawMesh(const AffineUniforms& affine_uniforms, const Mesh& mesh) {
    disableAttributes(mesh.attribute_buffer_objects);
 }
 
-std::pair<GLShaderHandle, GLAttributeLocation> Shader::attributeLocation(
+boost::optional<std::pair<GLShaderHandle, GLAttributeLocation>> Shader::attributeLocation(
       const Attribute& attribute) {
    if (attribute_locations_.count(attribute) == 0) {
-      std::cerr << "Could not find attribute: " << attribute_name(attribute) <<
+#ifdef WARN_0
+      std::clog << "Could not find attribute: " << attribute_name(attribute) <<
          " in shader program: " << program_name_ << std::endl;
-      std::cerr << "Make sure you add it to the list of attributes" << std::endl;
-      exit(EXIT_FAILURE);
+#endif
+      return boost::none;
    }
    return std::make_pair(
          gl_shader_.program(),
          attribute_locations_.at(attribute));
 }
 
-std::pair<GLShaderHandle, GLUniformLocation> Shader::uniformLocation(
+boost::optional<std::pair<GLShaderHandle, GLUniformLocation>> Shader::uniformLocation(
       const Uniform& uniform) {
    if (uniform_locations_.count(uniform) == 0) {
-      std::cerr << "Could not find uniform: " << uniform_name(uniform) <<
+#ifdef WARN_0
+      std::clog << "Could not find uniform: " << uniform_name(uniform) <<
          " in shader program: " << program_name_ << std::endl;
-      std::cerr << "Make sure you add it to the list of uniforms" << std::endl;
-      exit(EXIT_FAILURE);
+#endif
+      return boost::none;
    }
    return std::make_pair(
          gl_shader_.program(),

@@ -1,6 +1,7 @@
 #ifndef SHADER_H_
 #define SHADER_H_
 
+#include <boost/optional.hpp>
 #include <GL/glew.h>
 #include <map>
 #include <string>
@@ -34,12 +35,12 @@ struct Shader {
    }
 
    // Helper method. Gets the shader handle and the attribute location of the
-   // given attribute.
-   std::pair<GLShaderHandle, GLAttributeLocation> attributeLocation(
+   // given attribute, if it can be found.
+   boost::optional<std::pair<GLShaderHandle, GLAttributeLocation>> attributeLocation(
          const Attribute& attribute);
    // Helper method. Gets the shader handle and the uniform location of the
    // given uniform.
-   std::pair<GLShaderHandle, GLUniformLocation> uniformLocation(
+   boost::optional<std::pair<GLShaderHandle, GLUniformLocation>> uniformLocation(
          const Uniform& uniform);
 
    void uniformMatrix(const UniformMatrix& uniform) {
