@@ -20,6 +20,7 @@ struct GroundPlane {
   private:
    Mesh mesh_;
    ModelViewUniformMatrix model_matrix_;
+   GLUniformLocationMap blue_uniform_;
 };
 
 #endif // GROUND_PLANE_H_

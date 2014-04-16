@@ -1,7 +1,9 @@
 #include "game_object.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include "graphics/uniforms.h"
 #include "graphics/Shader.h"
+#include "graphics/Shaders.h"
 
 GameObject::GameObject(
       const GroundPlane& ground_plane,
@@ -11,10 +13,10 @@ GameObject::GameObject(
          ground_plane.x_bounds().shrink(2*kRadius).randomInclusive(),
          kRadius,
          ground_plane.z_bounds().shrink(2*kRadius).randomInclusive()),
-   velocity_(0.005f, 0, 0.005f),
+   velocity_(0.005f * cos(rand()), 0, 0.005f * sin(rand())),
+   blue_uniform_(shaders.getUniforms(Uniform::BLUE)),
    mesh_(mesh),
-   model_matrix_(shaders, glm::mat4())
-   {}
+   model_matrix_(shaders, glm::mat4()) {}
 
 void GameObject::step(units::MS dt, const GroundPlane& ground_plane) {
    if (!should_move_) return;
@@ -32,6 +34,7 @@ void GameObject::step(units::MS dt, const GroundPlane& ground_plane) {
 }
 
 void GameObject::draw(Shader& shader, const glm::mat4& view) {
+   shader.uniformFloat(blue_uniform_, should_blue_ ? 1.0f : 0.0f);
    model_matrix_.model_matrix = glm::translate(glm::mat4(), center_);
    shader.drawMesh(model_matrix_.calculateAffineUniforms(view), mesh_);
 }

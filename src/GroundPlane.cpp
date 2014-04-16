@@ -37,10 +37,12 @@ GroundPlane::GroundPlane(Shaders& shaders) :
       }
    },
    model_matrix_(shaders,
-         glm::rotate(glm::scale(glm::mat4(), glm::vec3(20.0f)), 90.0f, glm::vec3(1, 0, 0)))
+         glm::rotate(glm::scale(glm::mat4(), glm::vec3(20.0f)), 90.0f, glm::vec3(1, 0, 0))),
+   blue_uniform_(shaders.getUniforms(Uniform::BLUE))
 {
 }
 
 void GroundPlane::draw(Shader& shader, const glm::mat4& view) {
+   shader.uniformFloat(blue_uniform_, 0.0f);
    shader.drawMesh(model_matrix_.calculateAffineUniforms(view), mesh_);
 }

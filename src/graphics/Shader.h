@@ -46,6 +46,10 @@ struct Shader {
       uniform.sendToShader(gl_shader_);
    }
 
+   void uniformFloat(const GLUniformLocationMap& uniform, float data) {
+      gl_shader_.uniformFloat(uniform, data);
+   }
+
   private:
    void bindIndexBuffer(const IndexBufferObject& index_buffer);
    void bindAndEnableAttributes(const std::vector<ArrayBufferObject>& array_buffer_objects);

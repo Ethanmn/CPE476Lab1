@@ -2,6 +2,7 @@
 #define GAME_OBJECT_H_
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 #include "bounding_sphere.h"
 #include "GroundPlane.h"
@@ -9,6 +10,7 @@
 
 #include "graphics/mesh.h"
 #include "graphics/model_view_uniform_matrix.h"
+#include "graphics/gl_adapters/gl_types.h"
 
 struct Shader;
 
@@ -22,7 +24,7 @@ struct GameObject {
    void draw(Shader& shader, const glm::mat4& view);
 
    BoundingSphere bounding_sphere() const { return { center_, kRadius}; }
-   void onCollision() { should_blue_ = !should_blue_; }
+   void onCollision() { should_blue_ = true; velocity_ = -velocity_; }
 
    void onCameraCollision() { should_move_ = false; }
 
@@ -32,6 +34,7 @@ struct GameObject {
    bool should_blue_ = false;
    glm::vec3 center_;
    glm::vec3 velocity_;
+   GLUniformLocationMap blue_uniform_; // violation of layering. but fuck it
 
    Mesh mesh_;
    ModelViewUniformMatrix model_matrix_;

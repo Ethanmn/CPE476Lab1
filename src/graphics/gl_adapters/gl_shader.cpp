@@ -94,6 +94,10 @@ void GLShader::uniformMat4(
    uniformMatrix4fv(uniforms.at(program_), glm::value_ptr(data));
 }
 
+void GLShader::uniformFloat(const GLUniformLocationMap& uniforms, float data) {
+   glUniform1f(uniforms.at(program_), data);
+}
+
 void GLShader::bindAndEnableAttribute(const ArrayBufferObject& array_buffer) {
    glBindBuffer(GL_ARRAY_BUFFER, array_buffer.handle);
    glVertexAttribPointer(

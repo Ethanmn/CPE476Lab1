@@ -10,6 +10,7 @@ const std::vector<Uniform> kGroundUniforms{
    Uniform::MODEL_VIEW,
    Uniform::PROJECTION,
    Uniform::NORMAL,
+   Uniform::BLUE,
 };
 
 Shaders::Shaders() {

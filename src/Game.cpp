@@ -51,8 +51,7 @@ void Game::step(units::MS dt) {
    }
    for (auto& go1 : game_objects_) {
       for (auto& go2 : game_objects_) {
-         if (&go1 == &go2) continue;
-         if (go1.bounding_sphere().collides(go2.bounding_sphere())) {
+         if (&go1 != &go2 && go1.bounding_sphere().collides(go2.bounding_sphere())) {
             go1.onCollision();
             go2.onCollision();
          }
