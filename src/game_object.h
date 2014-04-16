@@ -28,6 +28,7 @@ struct GameObject {
 
    void onCameraCollision() { should_move_ = false; }
 
+   bool captured() const { return !should_move_; }
   private:
    const float kRadius = 1.0f;
    bool should_move_;

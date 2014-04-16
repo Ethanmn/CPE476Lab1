@@ -28,6 +28,8 @@ class Game {
    FreeTypeEngine free_type_engine_;
 
    int creation_countdown_;
+   int score_ = 0;
+   float fps_ = 0.0f;
 
    void step(units::MS dt);
    void draw();

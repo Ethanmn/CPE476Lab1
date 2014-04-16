@@ -17,12 +17,14 @@ const std::vector<float> ground_vertices{
    -0.5, 0.5, 0.0,
 };
 
-glm::mat4 projectionMatrix() {
-   const float field_of_view_y = 80.0f;
-   const float z_near = 0.1f;
-   const float z_far = 100.0f;
-   const float aspect_ratio = 640.0f/480.0f;
-   return glm::perspective(field_of_view_y, aspect_ratio, z_near, z_far);
+namespace {
+   glm::mat4 projectionMatrix() {
+      const float field_of_view_y = 80.0f;
+      const float z_near = 0.1f;
+      const float z_far = 100.0f;
+      const float aspect_ratio = 640.0f/480.0f;
+      return glm::perspective(field_of_view_y, aspect_ratio, z_near, z_far);
+   }
 }
 
 Game::Game() :
@@ -52,8 +54,10 @@ void Game::step(units::MS dt) {
    }
    for (auto& game_object : game_objects_) {
       game_object.step(dt, ground_plane_, game_objects_);
+      if (game_object.captured()) continue;
       if (camera_.bounding_sphere().collides(game_object.bounding_sphere())) {
          game_object.onCameraCollision();
+         ++score_;
       }
    }
 }
@@ -131,6 +135,12 @@ void Game::mainLoop() {
          } else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
             camera_.rotatePitch(kAngle);
          }
+
+         if (input.wasKeyPressed(SDL_SCANCODE_P)) {
+            std::cout << "Objects: " << game_objects_.size() << std::endl;
+            std::cout << "Captures: " << score_ << std::endl;
+            std::cout << "FPS: " << fps_ << std::endl;
+         }
       }
 
       {
@@ -138,6 +148,7 @@ void Game::mainLoop() {
          const units::MS dt = current_time - previous_time;
          step(dt);
          previous_time = current_time;
+         fps_ = 1000.0f / dt;
       }
 
       {
