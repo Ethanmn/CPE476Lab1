@@ -42,12 +42,16 @@ Game::Game() :
    glEnable(GL_CULL_FACE);
 }
 
-void Game::step(units::MS) {
+void Game::step(units::MS dt) {
+   for (auto& game_object : game_objects_) {
+      game_object.step(dt);
+   }
 }
 
 void Game::draw() {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+   const auto view = camera_.viewMatrix();
    // TODO: move to Shaders.
    auto& shaders = shaders_.getMap();
    for (auto& pair : shaders) {
@@ -66,7 +70,7 @@ void Game::draw() {
       shader.drawMesh(
             ModelViewUniformMatrix(
                shaders_,
-               model_matrix).calculateAffineUniforms(camera_.viewMatrix()),
+               model_matrix).calculateAffineUniforms(view),
             cube_mesh_);
        model_matrix = glm::mat4(
             glm::rotate(
@@ -76,10 +80,14 @@ void Game::draw() {
       shader.drawMesh(
             ModelViewUniformMatrix(
                shaders_,
-               model_matrix).calculateAffineUniforms(camera_.viewMatrix()),
+               model_matrix).calculateAffineUniforms(view),
             cube_mesh_);
 
-      ground_plane_.draw(shader, camera_.viewMatrix());
+      for (auto& game_object : game_objects_) {
+         game_object.draw(shader, view);
+      }
+
+      ground_plane_.draw(shader, view);
    }
    shaders_.clear();
 }
@@ -89,6 +97,12 @@ void Game::mainLoop() {
    bool running = true;
    SDL_Event event;
    units::MS previous_time = SDL_GetTicks();
+   game_objects_.push_back(
+         GameObject(
+            ground_plane_.x_bounds(),
+            ground_plane_.z_bounds(),
+            cube_mesh_,
+            shaders_));
    while (running) {
       {  // Collect input
          input.beginFrame();

@@ -2,9 +2,11 @@
 #define GAME_H_
 
 #include <glm/glm.hpp>
+#include <vector>
 
 #include "camera.h"
 #include "graphics/gl_adapters/uniform_matrix.h"
+#include "game_object.h"
 #include "GroundPlane.h"
 #include "input.h"
 #include "graphics/mesh.h"
@@ -16,6 +18,8 @@ class Game {
    SDLEngine engine_;
    Shaders shaders_;
    GroundPlane ground_plane_;
+   std::vector<GameObject> game_objects_;
+
    UniformMatrix projection_;
    Camera camera_;
    Mesh cube_mesh_;
