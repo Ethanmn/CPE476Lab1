@@ -4,18 +4,30 @@
 #include "graphics/Shader.h"
 
 GameObject::GameObject(
-      const Bounds& x_bounds,
-      const Bounds& z_bounds,
+      const GroundPlane& ground_plane,
       const Mesh& mesh,
       Shaders& shaders) :
-   center_(x_bounds.randomInclusive(), kRadius, z_bounds.randomInclusive()),
-   velocity_(0, 1, 0),
+   center_(
+         ground_plane.x_bounds().shrink(2*kRadius).randomInclusive(),
+         kRadius,
+         ground_plane.z_bounds().shrink(2*kRadius).randomInclusive()),
+   velocity_(0.005f, 0, 0.005f),
    mesh_(mesh),
    model_matrix_(shaders, glm::mat4())
    {}
 
-void GameObject::step(units::MS dt) {
-   center_ += velocity_ * static_cast<float>(dt);
+void GameObject::step(units::MS dt, const GroundPlane& ground_plane) {
+   const glm::vec3 delta = velocity_ * static_cast<float>(dt);
+   const glm::vec3 new_center = center_ + delta;
+   if (Bounds(new_center.x - kRadius,
+              new_center.x + kRadius).within(ground_plane.x_bounds()) &&
+       Bounds(new_center.z - kRadius,
+              new_center.z + kRadius).within(ground_plane.z_bounds())) {
+      center_ = new_center;
+   } else {
+      velocity_ = -velocity_;
+      step(dt, ground_plane);
+   }
 }
 
 void GameObject::draw(Shader& shader, const glm::mat4& view) {

@@ -3,8 +3,8 @@
 
 #include <glm/glm.hpp>
 
-#include "bounds.h"
 #include "bounding_sphere.h"
+#include "GroundPlane.h"
 #include "units.h"
 
 #include "graphics/mesh.h"
@@ -14,12 +14,11 @@ struct Shader;
 
 struct GameObject {
    GameObject(
-         const Bounds& x_bounds,
-         const Bounds& z_bounds,
+         const GroundPlane& ground_plane,
          const Mesh& mesh,
          Shaders& shaders);
 
-   void step(units::MS dt);
+   void step(units::MS dt, const GroundPlane& ground_plane);
    void draw(Shader& shader, const glm::mat4& view);
 
    BoundingSphere bounding_sphere() const { return { center_, kRadius}; }

@@ -44,7 +44,7 @@ Game::Game() :
 
 void Game::step(units::MS dt) {
    for (auto& game_object : game_objects_) {
-      game_object.step(dt);
+      game_object.step(dt, ground_plane_);
    }
 }
 
@@ -99,8 +99,7 @@ void Game::mainLoop() {
    units::MS previous_time = SDL_GetTicks();
    game_objects_.push_back(
          GameObject(
-            ground_plane_.x_bounds(),
-            ground_plane_.z_bounds(),
+            ground_plane_,
             cube_mesh_,
             shaders_));
    while (running) {

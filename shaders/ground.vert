@@ -9,5 +9,5 @@ smooth out vec4 theColor;
 void main()
 {
    gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1);
-   theColor = normalize(uNormalMatrix * vec4(aNormal, 0));
+   theColor = normalize(vec4(1, 0, 0, 1) + 0.5f * normalize(uNormalMatrix * vec4(aNormal, 0)));
 }
