@@ -7,12 +7,12 @@
 const auto kPitchLimit = 45.0f;
 
 Camera::Camera() :
-   world_position_(glm::vec3(0, 0, -3))
+   world_position_(glm::vec3(0, 0.5f, -3))
       {}
 
 void Camera::translateForward(float amount) {
    world_position_ += amount * unitDirection();
-   world_position_.y = std::max(0.0f, world_position_.y);
+   world_position_.y = std::max(0.5f, world_position_.y);
 }
 
 void Camera::translateStrafe(float amount) {
