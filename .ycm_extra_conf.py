@@ -27,6 +27,8 @@ flags = [
 'src',
 '-I',
 '/usr/include/SDL2',
+'-I',
+'/usr/include/freetype2',
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

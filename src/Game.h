@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "camera.h"
+#include "free_type_engine.h"
 #include "graphics/gl_adapters/uniform_matrix.h"
 #include "game_object.h"
 #include "GroundPlane.h"
@@ -24,6 +25,7 @@ class Game {
    Camera camera_;
    Mesh cube_mesh_;
    Input input_;
+   FreeTypeEngine free_type_engine_;
 
    int creation_countdown_;
 
