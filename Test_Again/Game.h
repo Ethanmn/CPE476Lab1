@@ -8,7 +8,7 @@
 #include "GroundPlane.h"
 #include "input.h"
 #include "graphics/mesh.h"
-#include "graphics/SDLEngine.h"
+#include "SDLEngine.h"
 #include "graphics/Shaders.h"
 #include "units.h"
 
