@@ -62,27 +62,6 @@ void Game::draw() {
       // send uniforms to the shader
       shader.uniformMatrix(projection_);
 
-      glm::mat4 model_matrix(
-            glm::rotate(
-               glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f)),
-               0.0f,
-               glm::vec3(0.0f, 1.0f, 0.0f)));
-      shader.drawMesh(
-            ModelViewUniformMatrix(
-               shaders_,
-               model_matrix).calculateAffineUniforms(view),
-            cube_mesh_);
-       model_matrix = glm::mat4(
-            glm::rotate(
-               glm::translate(glm::mat4(), glm::vec3(0.0f, 3.0f, 0.0f)),
-               0.0f,
-               glm::vec3(0.0f, 1.0f, 0.0f)));
-      shader.drawMesh(
-            ModelViewUniformMatrix(
-               shaders_,
-               model_matrix).calculateAffineUniforms(view),
-            cube_mesh_);
-
       for (auto& game_object : game_objects_) {
          game_object.draw(shader, view);
       }
