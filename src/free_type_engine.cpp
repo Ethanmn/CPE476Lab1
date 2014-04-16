@@ -14,4 +14,7 @@ void FreeTypeEngine::loadFont(const std::string& font_path) {
       fprintf(stderr, "Could not open font_path: %s. Make sure to leave in the extension.\n", font_path.c_str());
       exit(EXIT_FAILURE);
    }
+
+   //TODO: not in here.
+   FT_Set_Pixel_Sizes(face, 0, 24);
 }
