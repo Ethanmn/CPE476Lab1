@@ -20,18 +20,18 @@ struct GameObject {
          const Mesh& mesh,
          Shaders& shaders);
 
-   void step(units::MS dt, const GroundPlane& ground_plane);
+   void step(units::MS dt, const GroundPlane& ground_plane, std::vector<GameObject>& game_objects);
    void draw(Shader& shader, const glm::mat4& view);
 
    BoundingSphere bounding_sphere() const { return { center_, kRadius}; }
-   void onCollision() { should_blue_ = true; velocity_ = -velocity_; }
+   void onCollision() { should_blue_ = true; velocity_ = - velocity_; }
 
    void onCameraCollision() { should_move_ = false; }
 
   private:
    const float kRadius = 1.0f;
-   bool should_move_ = true;
-   bool should_blue_ = false;
+   bool should_move_;
+   bool should_blue_;
    glm::vec3 center_;
    glm::vec3 velocity_;
    GLUniformLocationMap blue_uniform_; // violation of layering. but fuck it

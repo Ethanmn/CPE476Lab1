@@ -43,18 +43,15 @@ Game::Game() :
 }
 
 void Game::step(units::MS dt) {
+   creation_countdown_ -= dt;
+   if (creation_countdown_ <= 0) {
+      game_objects_.push_back(GameObject(ground_plane_, cube_mesh_, shaders_));
+      creation_countdown_ = 1500 + rand() % 250;
+   }
    for (auto& game_object : game_objects_) {
-      game_object.step(dt, ground_plane_);
+      game_object.step(dt, ground_plane_, game_objects_);
       if (camera_.bounding_sphere().collides(game_object.bounding_sphere())) {
          game_object.onCameraCollision();
-      }
-   }
-   for (auto& go1 : game_objects_) {
-      for (auto& go2 : game_objects_) {
-         if (&go1 != &go2 && go1.bounding_sphere().collides(go2.bounding_sphere())) {
-            go1.onCollision();
-            go2.onCollision();
-         }
       }
    }
 }
@@ -87,13 +84,7 @@ void Game::mainLoop() {
    bool running = true;
    SDL_Event event;
    units::MS previous_time = SDL_GetTicks();
-   for (size_t i = 0; i < 5; ++i) {
-      game_objects_.push_back(
-            GameObject(
-               ground_plane_,
-               cube_mesh_,
-               shaders_));
-   }
+   creation_countdown_ = 1500 + rand() % 250;
    while (running) {
       {  // Collect input
          input.beginFrame();

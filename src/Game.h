@@ -25,6 +25,8 @@ class Game {
    Mesh cube_mesh_;
    Input input_;
 
+   int creation_countdown_;
+
    void step(units::MS dt);
    void draw();
 

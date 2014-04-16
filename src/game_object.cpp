@@ -9,6 +9,8 @@ GameObject::GameObject(
       const GroundPlane& ground_plane,
       const Mesh& mesh,
       Shaders& shaders) :
+   should_move_(true),
+   should_blue_(false),
    center_(
          ground_plane.x_bounds().shrink(2*kRadius).randomInclusive(),
          kRadius,
@@ -18,7 +20,7 @@ GameObject::GameObject(
    mesh_(mesh),
    model_matrix_(shaders, glm::mat4()) {}
 
-void GameObject::step(units::MS dt, const GroundPlane& ground_plane) {
+void GameObject::step(units::MS dt, const GroundPlane& ground_plane, std::vector<GameObject>& game_objects) {
    if (!should_move_) return;
    const glm::vec3 delta = velocity_ * static_cast<float>(dt);
    const glm::vec3 new_center = center_ + delta;
@@ -26,10 +28,19 @@ void GameObject::step(units::MS dt, const GroundPlane& ground_plane) {
               new_center.x + kRadius).within(ground_plane.x_bounds()) &&
        Bounds(new_center.z - kRadius,
               new_center.z + kRadius).within(ground_plane.z_bounds())) {
-      center_ = new_center;
+      bool collided = false;
+      for (auto& g : game_objects) {
+         if (this != &g && BoundingSphere{new_center, kRadius}.collides(g.bounding_sphere())) {
+            onCollision();
+            g.onCollision();
+            collided = true;
+         }
+      }
+      if (!collided)
+         center_ = new_center;
    } else {
       velocity_ = -velocity_;
-      step(dt, ground_plane);
+      step(dt, ground_plane, game_objects);
    }
 }
 

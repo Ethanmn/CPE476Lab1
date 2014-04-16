@@ -24,7 +24,7 @@ flags = [
 '-I',
 './ClangCompleter',
 '-I',
-'Test_Again',
+'src',
 '-I',
 '/usr/include/SDL2',
 ]
