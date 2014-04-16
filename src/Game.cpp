@@ -113,26 +113,26 @@ void Game::mainLoop() {
          }
          const float kMoveAmount = 0.2f;
          if (input.isKeyHeld(SDL_SCANCODE_W)) {
-            camera_.translateLocal(kMoveAmount, kForwardVec);
+            camera_.translateForward(kMoveAmount);
          } else if (input.isKeyHeld(SDL_SCANCODE_S)) {
-            camera_.translateLocal(kMoveAmount, kBackwardVec);
+            camera_.translateForward(-kMoveAmount);
          }
          if (input.isKeyHeld(SDL_SCANCODE_A)) {
-            camera_.translateLocal(kMoveAmount, kLeftVec);
+            camera_.translateStrafe(-kMoveAmount);
          } else if (input.isKeyHeld(SDL_SCANCODE_D)) {
-            camera_.translateLocal(kMoveAmount, kRightVec);
+            camera_.translateStrafe(kMoveAmount);
          }
 
          const float kAngle = 5.0f;
          if (input.isKeyHeld(SDL_SCANCODE_LEFT)) {
-            camera_.rotateLocal(kAngle, kDownVec);
+            camera_.rotateYaw(kAngle);
          } else if (input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
-            camera_.rotateLocal(kAngle, kUpVec);
+            camera_.rotateYaw(-kAngle);
          }
          if (input.isKeyHeld(SDL_SCANCODE_UP)) {
-            camera_.rotateLocal(kAngle, kLeftVec);
+            camera_.rotatePitch(-kAngle);
          } else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
-            camera_.rotateLocal(kAngle, kRightVec);
+            camera_.rotatePitch(kAngle);
          }
       }
 

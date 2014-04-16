@@ -2,7 +2,6 @@
 #define CAMERA_H_
 
 #include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 #include "vec_constants.h"
 
@@ -10,16 +9,20 @@ struct Camera {
    Camera();
 
    // Convert axis from local space before translate/rotate.
-   void translateLocal(float amount, const glm::vec3& local_axis);
-   void rotateLocal(float angle, const glm::vec3& local_axis);
+   void translateForward(float amount);
+   void translateStrafe(float amount);
+   void rotatePitch(float degrees);
+   void rotateYaw(float degrees) {
+      yaw_ += degrees;
+   }
 
    glm::mat4 viewMatrix() const;
 
   private:
-   glm::vec3 fromLocalAxis(const glm::vec3& axis) const;
+   glm::vec3 unitDirection() const;
 
    glm::vec3 world_position_;
-   glm::quat world_rotation_;
+   float pitch_ = 0.0f, yaw_ = 0.0f;
 };
 
 #endif // CAMERA_H_
