@@ -8,6 +8,9 @@ OBJDIR=obj
 # The .o files. One per cpp file. Put them in the obj directory.
 OBJECTS=$(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCS))
 
+# The packages loaded by pkg-config.
+PKGS=glew gl assimp freetype2
+
 # The flags you want to use when compiling individual objects (.o files)
 # -g=generate information for debugging (used with debugging tools such as gdb
 #  or valgrind)
@@ -16,14 +19,14 @@ OBJECTS=$(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCS))
 # -std=c++11=Enforce C++11 standard compliance. (You could also use C++11 if you
 #  want to be more up-to-date).
 # -MMD=Create a .d file to store the rule for the header dependencies of each object.
-CFLAGS=-g -Wall -Wextra -std=c++11 -MMD -I$(SRCDIR) `sdl2-config --cflags` `pkg-config --cflags glew gl assimp`
+CFLAGS=-g -Wall -Wextra -std=c++11 -MMD -I$(SRCDIR) `sdl2-config --cflags` `pkg-config --cflags $(PKGS)`
 
 # LDLIBS (Load Libraries)
 # External libraries you are using that need to be linked.
 # ``=run a shell command (command substitution)
 # sdl-config=a command that generates the load libs/cflags necessary depending
 # on the platform (OS/Linux/Win)
-LDLIBS=`sdl2-config --libs` `pkg-config --libs glew gl assimp`
+LDLIBS=`sdl2-config --libs` `pkg-config --libs $(PKGS)`
 
 # LDFLAGS (Load/linker flags)
 LDFLAGS=
