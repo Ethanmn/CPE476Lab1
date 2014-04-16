@@ -1,4 +1,4 @@
-SRCDIR=Test_Again
+SRCDIR=src
 # The C++ source files (but not the headers)
 SRCS=$(shell find $(SRCDIR) -type f -name '*.cpp')
 
