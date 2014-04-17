@@ -7,16 +7,6 @@
 #include "graphics/model_view_uniform_matrix.h"
 #include "vec_constants.h"
 
-const std::vector<float> ground_vertices{
-   -0.5, -0.5, 0.0,
-   0.5, -0.5, 0.0,
-   -0.5, 0.5, 0.0,
-
-   0.5, 0.5, 0.0,
-   0.5, -0.5, 0.0,
-   -0.5, 0.5, 0.0,
-};
-
 namespace {
    glm::mat4 projectionMatrix() {
       const float field_of_view_y = 80.0f;

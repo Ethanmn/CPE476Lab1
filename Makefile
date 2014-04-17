@@ -1,12 +1,13 @@
 SRCDIR=src
+CPP_EXT=cpp
 # The C++ source files (but not the headers)
-SRCS=$(shell find $(SRCDIR) -type f -name '*.cpp')
+SRCS=$(shell find $(SRCDIR) -type f -name '*.$(CPP_EXT)')
 
 # The directory to store the compiled .o files.
 OBJDIR=obj
 
 # The .o files. One per cpp file. Put them in the obj directory.
-OBJECTS=$(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCS))
+OBJECTS=$(patsubst %.$(CPP_EXT),$(OBJDIR)/%.o,$(SRCS))
 
 # The packages loaded by pkg-config.
 PKGS=glew gl assimp freetype2
@@ -67,7 +68,7 @@ $(EXECUTABLE): $(OBJECTS)
 # "$@" in this case is the name of the object file (.o). MUST FOLLOW -o
 # "$<" in this case is the .cpp file
 # Make the directory if it doesn't exist
-$(OBJDIR)/%.o: %.cpp
+$(OBJDIR)/%.o: %.$(CPP_EXT)
 	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
